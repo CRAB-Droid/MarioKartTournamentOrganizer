@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void saveQuote(View view) {
+        //TODO: fill this out
         EditText quoteView = (EditText) findViewById(R.id.editTextQuote);
         EditText authorView = (EditText) findViewById(R.id.editTextAuthor);
         String quoteText = quoteView.getText().toString();

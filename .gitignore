@@ -1,3 +1,6 @@
+# weird finder thing on Mac
+.DS_Store
+
 # Gradle files
 .gradle/
 build/

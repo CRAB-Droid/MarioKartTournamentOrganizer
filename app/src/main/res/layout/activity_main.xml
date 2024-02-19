@@ -33,12 +33,31 @@
         app:layout_constraintTop_toBottomOf="@+id/editTextAuthor"/>
 
     <Button
+        android:id="@+id/saveButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Save"
         android:onClick="saveQuote"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/editTextQuote"/>
+
+    <Button
+        android:id="@+id/fetchButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Fetch"
+        android:onClick="fetchQuote"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/saveButton"/>
+
+    <TextView
+        android:id="@+id/textViewInspiring"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Inspirational quote goes here!"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/fetchButton" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,7 +12,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -22,12 +25,34 @@ public class MainActivity extends AppCompatActivity {
     public static final String AUTHOR_KEY = "author";
     public static final String TAG = "InspiringQuote";
 
+    TextView mQuoteTextView;
+
     private DocumentReference mDocRef = FirebaseFirestore.getInstance().document("sampleData/inspiration");
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        mQuoteTextView = (TextView) findViewById(R.id.textViewInspiring);
+    }
+
+    public void fetchQuote(View view) {
+        // use the mDocRef variable for saving and fetching to/from db, since we want to edit the...
+        // ... same FireStore "document"
+        mDocRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                // DocumentSnapshot has info related to document that we're fetching from db
+                if (documentSnapshot.exists()) {
+                    String quoteText = documentSnapshot.getString(QUOTE_KEY);
+                    String authorText = documentSnapshot.getString(AUTHOR_KEY);
+                    // Alternatively could to this to get entire document in String, Object hashmap
+                    // Map<String, Object> myData = documentSnapshot.getData();
+                    mQuoteTextView.setText("\"" + quoteText + "\" -- " + authorText);
+                }
+            }
+        });
     }
 
     public void saveQuote(View view) {

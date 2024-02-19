@@ -13,6 +13,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 
@@ -29,7 +30,29 @@ public class MainActivity extends AppCompatActivity {
 
     private DocumentReference mDocRef = FirebaseFirestore.getInstance().document("sampleData/inspiration");
 
-
+    @Override
+    protected void onStart() {
+        super.onStart();
+        // dynamically fetch data, without having to click fetch
+        // It'll happen really fast, cause Android technically updates from the local cache
+        // even before it goes to server. That is just an optimization android does since
+        // we're saving and fetching to/from database from the same client.
+        mDocRef.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
+            // by specifying this, this listener will stop when main activity stops
+            // this helps user battery life and our database server costs
+            @Override
+            public void onEvent(DocumentSnapshot documentSnapshot, FirebaseFirestoreException e) {
+                // if statement and code under it same as when fetching with button
+                if (documentSnapshot.exists()) {
+                    String quoteText = documentSnapshot.getString(QUOTE_KEY);
+                    String authorText = documentSnapshot.getString(AUTHOR_KEY);
+                    mQuoteTextView.setText("\"" + quoteText + "\" -- " + authorText);
+                } else if (e != null) {
+                    Log.w(TAG, "Got an exception!", e);
+                }
+            }
+        });
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

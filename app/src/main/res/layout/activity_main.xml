@@ -10,7 +10,7 @@
     tools:ignore="HardcodedText">
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/editTextAuthor"
         android:layout_width="0dp"
         android:layout_height="64dp"
         android:hint="Name"
@@ -22,22 +22,23 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/editText2"
+        android:id="@+id/editTextQuote"
         android:layout_width="0dp"
         android:layout_height="64dp"
         android:inputType="text"
         android:hint="Quote"
+        android:autofillHints="name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText"
-        android:autofillHints="name" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextAuthor"/>
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Save"
+        android:onClick="saveQuote"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/editText2"/>
+        app:layout_constraintTop_toBottomOf="@id/editTextQuote"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -6,23 +6,34 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+
     <EditText
-        android:id="@+id/messageTextInput"
+        android:id="@+id/phoneNumberInput"
         android:layout_width="0dp"
         android:layout_height="64dp"
         android:inputType="text"
-        android:hint="Message"
+        android:hint="Phone Number"
         android:autofillHints="name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
+
+    <EditText
+        android:id="@+id/messageTextInput"
+        android:layout_width="match_parent"
+        android:layout_height="256dp"
+        android:inputType="textMultiLine"
+        android:hint="Message"
+        android:autofillHints="name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/phoneNumberInput"/>
 
     <Button
         android:id="@+id/sendMessageButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Send Message"
-        android:onClick="processClick"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/messageTextInput"/>
 

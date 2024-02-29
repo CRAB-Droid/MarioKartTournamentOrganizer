@@ -34,7 +34,9 @@ public class MainActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Uri uri = null;
                 Intent open_camera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                open_camera.putExtra(MediaStore.EXTRA_OUTPUT, uri);
                 cameraLauncher.launch(open_camera);
             }
         });
@@ -44,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
             new ActivityResultContracts.StartActivityForResult(),
             result -> {
                 if (result.getResultCode() == RESULT_OK && result.getData() != null) {
+                    
                     Bundle bundle = result.getData().getExtras();
                     processImage(bundle);
                 }
@@ -57,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
         // Get photo into Uri form
         ContentValues values = new ContentValues();
         values.put(MediaStore.Images.Media.DISPLAY_NAME, "MyPhoto");
-        values.put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg");
+        values.put(MediaStore.Images.Media.MIME_TYPE, "image/*");
         Uri uri = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
 
         // Log to double check something is in the Uri

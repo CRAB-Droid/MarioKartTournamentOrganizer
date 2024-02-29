@@ -7,12 +7,45 @@
     tools:context=".MainActivity">
 
     <TextView
+        android:id="@+id/dateTimeTextViewHeader"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello Mario Circuit!"
+        android:layout_marginStart="62dp"
+        android:layout_marginTop="76dp"
+        android:layout_marginEnd="38dp"
+        android:layout_marginBottom="21dp"
+        android:text="TextView"
+        app:layout_constraintBottom_toTopOf="@+id/addToCalendarButton"
+        app:layout_constraintEnd_toStartOf="@+id/dataTimeTextViewInfo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/dataTimeTextViewInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="38dp"
+        android:layout_marginTop="74dp"
+        android:layout_marginEnd="195dp"
+        android:layout_marginBottom="638dp"
+        android:text="TextView"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/dateTimeTextViewHeader"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/addToCalendarButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="63dp"
+        android:layout_marginTop="21dp"
+        android:layout_marginEnd="257dp"
+        android:layout_marginBottom="566dp"
+        android:text="Button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/dateTimeTextViewHeader" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

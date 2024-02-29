@@ -1,6 +1,9 @@
 package com.example.mariokarttournamentorganizer;
 
+import static android.content.Intent.ACTION_SEND;
+
 import android.app.Activity;
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.ContentValues;
 import android.graphics.Bitmap;
@@ -35,7 +38,17 @@ public class MainActivity extends AppCompatActivity {
                 cameraLauncher.launch(open_camera);
             }
         });
+
     }
+    ActivityResultLauncher<Intent> cameraLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                if (result.getResultCode() == RESULT_OK && result.getData() != null) {
+                    Bundle bundle = result.getData().getExtras();
+                    processImage(bundle);
+                }
+            }
+    );
 
     void processImage(Bundle bundle) {
         Bitmap photo = (Bitmap) bundle.get("data");
@@ -59,58 +72,28 @@ public class MainActivity extends AppCompatActivity {
         postToInstagram(uri);
     }
 
-    void postToInstagram(Uri backgroundAssetUri) {
+
+
+    void postToInstagram(Uri uri) {
         // background asset means the main photo on the story,
             // sticker asset is the alternative
 
         // Instantiate an intent
-        Intent intent = new Intent("com.instagram.share.ADD_TO_STORY");
+        Intent share = new Intent(ACTION_SEND);
+        share.setAction(ACTION_SEND);
+        share.setType("image/*");
 
         // Attach your App ID to the intent
         String sourceApplication = "@string/facebook_app_id"; // This is your application's FB ID
-        intent.putExtra("source_application", sourceApplication);
+        share.putExtra("source_application", sourceApplication);
+        share.putExtra(Intent.EXTRA_STREAM, uri);
 
-        // Attach your image to the intent from a URI
-//        Uri backgroundAssetUri = Uri.parse("your-image-asset-uri-goes-here");
-        intent.setDataAndType(backgroundAssetUri, "image/jpeg");
-
-        // Grant URI permissions for the image
-        intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-
-        instagramLauncher.launch(intent);
-
-//
-//        // Instantiate an activity
-//        Activity activity = this; // would have to use getActivity() if we're in a fragment
-//
-//        // Verify that the activity resolves the intent and start it
-//        if (activity.getPackageManager().resolveActivity(intent, 0) != null) {
-//            activity.startActivityForResult(intent, 0);
-//        } else {
-//            System.out.println("not allowed");
-//        }
+        // Try to invoke the intent.
+        try {
+            startActivity(Intent.createChooser(share, "Share to"));
+        } catch (ActivityNotFoundException e) {
+            Log.e("MainActivity", "ActivityNotFoundException");
+            // Define what your app should do if no activity can handle the intent.
+        }
     }
-
-    ActivityResultLauncher<Intent> cameraLauncher = registerForActivityResult(
-            new ActivityResultContracts.StartActivityForResult(),
-            result -> {
-                if (result.getResultCode() == RESULT_OK && result.getData() != null) {
-                    Bundle bundle = result.getData().getExtras();
-                    processImage(bundle);
-                }
-            }
-    );
-
-    ActivityResultLauncher<Intent> instagramLauncher = registerForActivityResult(
-            new ActivityResultContracts.StartActivityForResult(),
-            result -> {
-                if (result.getResultCode() == RESULT_OK && result.getData() != null) {
-                    System.out.println("success");
-                } else {
-                    System.out.println("failure");
-                }
-            }
-    );
-
-
 }

@@ -32,37 +32,32 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent open_camera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                activityResultLauncher.launch(open_camera);
+                cameraLauncher.launch(open_camera);
             }
         });
     }
 
-    ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(
-            new ActivityResultContracts.StartActivityForResult(),
-            result -> {
-                if (result.getResultCode() == RESULT_OK && result.getData() != null) {
-                    Bundle bundle = result.getData().getExtras();
-                    Bitmap photo = (Bitmap) bundle.get("data");
-                    imageView.setImageBitmap(photo);
+    void processImage(Bundle bundle) {
+        Bitmap photo = (Bitmap) bundle.get("data");
+//        imageView.setImageBitmap(photo);
 
-                    // Get photo into Uri form
-                    ContentValues values = new ContentValues();
-                    values.put(MediaStore.Images.Media.DISPLAY_NAME, "MyPhoto");
-                    values.put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg");
-                    Uri uri = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
+        // Get photo into Uri form
+        ContentValues values = new ContentValues();
+        values.put(MediaStore.Images.Media.DISPLAY_NAME, "MyPhoto");
+        values.put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg");
+        Uri uri = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
 
-                    // Log to double check something is in the Uri
-                    if (uri != null) {
-                        String uriString = uri.toString();
-                        Log.d("MainActivity", "Uri: " + uriString);
-                    } else {
-                        Log.e("MainActivity", "Uri is null");
-                    }
+        // Log to double check something is in the Uri
+        if (uri != null) {
+            String uriString = uri.toString();
+            Log.d("MainActivity", "Uri: " + uriString);
+        } else {
+            Log.e("MainActivity", "Uri is null");
+        }
 
-                    // Post to Insta stories
-                    postToInstagram(uri);
-                }
-            });
+        // Post to Insta stories
+        postToInstagram(uri);
+    }
 
     void postToInstagram(Uri backgroundAssetUri) {
         // background asset means the main photo on the story,
@@ -82,14 +77,40 @@ public class MainActivity extends AppCompatActivity {
         // Grant URI permissions for the image
         intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
 
-        // Instantiate an activity
-        Activity activity = this; // would have to use getActivity() if we're in a fragment
+        instagramLauncher.launch(intent);
 
-        // Verify that the activity resolves the intent and start it
-        if (activity.getPackageManager().resolveActivity(intent, 0) != null) {
-            activity.startActivityForResult(intent, 0);
-        } else {
-            System.out.println("not allowed");
-        }
+//
+//        // Instantiate an activity
+//        Activity activity = this; // would have to use getActivity() if we're in a fragment
+//
+//        // Verify that the activity resolves the intent and start it
+//        if (activity.getPackageManager().resolveActivity(intent, 0) != null) {
+//            activity.startActivityForResult(intent, 0);
+//        } else {
+//            System.out.println("not allowed");
+//        }
     }
+
+    ActivityResultLauncher<Intent> cameraLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                if (result.getResultCode() == RESULT_OK && result.getData() != null) {
+                    Bundle bundle = result.getData().getExtras();
+                    processImage(bundle);
+                }
+            }
+    );
+
+    ActivityResultLauncher<Intent> instagramLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                if (result.getResultCode() == RESULT_OK && result.getData() != null) {
+                    System.out.println("success");
+                } else {
+                    System.out.println("failure");
+                }
+            }
+    );
+
+
 }

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -8,57 +9,53 @@
         android:id="@+id/locationInput"
         android:layout_width="344dp"
         android:layout_height="42dp"
-        android:layout_marginStart="33dp"
-        android:layout_marginEnd="34dp"
-        android:layout_marginBottom="45dp"
         android:text="input"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/participantsHeading"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.492"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/locationHeading" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.438" />
 
     <TextView
         android:id="@+id/locationHeading"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="33dp"
-        android:layout_marginEnd="261dp"
-        android:layout_marginBottom="18dp"
-        android:text="Location"
-        android:textSize="30sp"
-        app:layout_constraintBottom_toTopOf="@+id/locationInput"
+        android:text="Location:"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.107"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/timeDateInput" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.368" />
 
     <TextView
         android:id="@+id/resultsInput"
         android:layout_width="344dp"
         android:layout_height="42dp"
-        android:layout_marginStart="34dp"
-        android:layout_marginEnd="33dp"
-        android:layout_marginBottom="67dp"
         android:text="input"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.507"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/resultsHeading" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.814" />
 
     <TextView
         android:id="@+id/participantsInput"
         android:layout_width="344dp"
         android:layout_height="42dp"
-        android:layout_marginStart="34dp"
-        android:layout_marginEnd="33dp"
-        android:layout_marginBottom="42dp"
         android:text="input"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/resultsHeading"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.492"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/participantsHeading" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.626" />
 
     <TextView
         android:id="@+id/timeDateHeading"
@@ -66,69 +63,66 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="33dp"
         android:layout_marginEnd="183dp"
-        android:layout_marginBottom="18dp"
-        android:text="Time and Date"
-        android:textSize="30sp"
-        app:layout_constraintBottom_toTopOf="@+id/timeDateInput"
+        android:text="Time and Date:"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/heading" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.186" />
 
     <TextView
         android:id="@+id/participantsHeading"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="34dp"
-        android:layout_marginEnd="215dp"
-        android:layout_marginBottom="16dp"
-        android:text="Participants"
-        android:textSize="30sp"
-        app:layout_constraintBottom_toTopOf="@+id/participantsInput"
+        android:text="Participants:"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.122"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/locationInput" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.555" />
 
     <TextView
         android:id="@+id/resultsHeading"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="34dp"
-        android:layout_marginEnd="277dp"
-        android:layout_marginBottom="10dp"
-        android:text="Results"
-        android:textSize="30sp"
-        app:layout_constraintBottom_toTopOf="@+id/resultsInput"
+        android:text="Results:"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.102"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/participantsInput" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.741" />
 
     <TextView
         android:id="@+id/timeDateInput"
         android:layout_width="344dp"
         android:layout_height="42dp"
-        android:layout_marginStart="34dp"
-        android:layout_marginEnd="33dp"
-        android:layout_marginBottom="40dp"
         android:text="input"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/locationHeading"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.507"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/timeDateHeading" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.253" />
 
     <TextView
         android:id="@+id/heading"
         android:layout_width="370dp"
         android:layout_height="43dp"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="45dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="58dp"
         android:text="Past Mario Kart Tournament"
         android:textSize="29sp"
-        app:layout_constraintBottom_toTopOf="@+id/timeDateHeading"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.487"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.072" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

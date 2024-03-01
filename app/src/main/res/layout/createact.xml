@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <EditText
+        android:id="@+id/editTextDate"
+        android:layout_width="258dp"
+        android:layout_height="40dp"
+        android:layout_marginEnd="29dp"
+        android:layout_marginBottom="42dp"
+        android:ems="10"
+        android:inputType="date"
+        app:layout_constraintBottom_toTopOf="@+id/editTextTime"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/dateTextView"
+        app:layout_constraintTop_toBottomOf="@+id/heading" />
+
+    <EditText
+        android:id="@+id/editTextTime"
+        android:layout_width="255dp"
+        android:layout_height="39dp"
+        android:layout_marginEnd="29dp"
+        android:layout_marginBottom="48dp"
+        android:ems="10"
+        android:inputType="time"
+        app:layout_constraintBottom_toTopOf="@+id/editTextLocation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/timeTextView"
+        app:layout_constraintTop_toBottomOf="@+id/editTextDate" />
+
+    <EditText
+        android:id="@+id/editTextLocation"
+        android:layout_width="204dp"
+        android:layout_height="41dp"
+        android:layout_marginEnd="29dp"
+        android:layout_marginBottom="382dp"
+        android:ems="10"
+        android:inputType="text"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/locationTextView"
+        app:layout_constraintTop_toBottomOf="@+id/editTextTime" />
+
+    <TextView
+        android:id="@+id/heading"
+        android:layout_width="326dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="42dp"
+        android:layout_marginTop="57dp"
+        android:layout_marginEnd="43dp"
+        android:layout_marginBottom="42dp"
+        android:text="Create Mario Kart Tournament"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/editTextDate"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/dateTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="47dp"
+        android:layout_marginTop="42dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="42dp"
+        android:text="Date"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toTopOf="@+id/timeTextView"
+        app:layout_constraintEnd_toStartOf="@+id/editTextDate"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/heading" />
+
+    <TextView
+        android:id="@+id/timeTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="47dp"
+        android:layout_marginEnd="13dp"
+        android:layout_marginBottom="47dp"
+        android:text="Time"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toTopOf="@+id/locationTextView"
+        app:layout_constraintEnd_toStartOf="@+id/editTextTime"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dateTextView" />
+
+    <TextView
+        android:id="@+id/locationTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="47dp"
+        android:layout_marginEnd="14dp"
+        android:layout_marginBottom="382dp"
+        android:text="Location"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/editTextLocation"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/timeTextView" />
+
+    <Button
+        android:id="@+id/createButton"
+        android:layout_width="255dp"
+        android:layout_height="94dp"
+        android:layout_marginStart="157dp"
+        android:layout_marginTop="70dp"
+        android:layout_marginEnd="164dp"
+        android:layout_marginBottom="264dp"
+        android:text="Create"
+        android:textSize="32dp"
+        android:backgroundTint="@color/red"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.478"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextLocation"
+        app:layout_constraintVertical_bias="0.0" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

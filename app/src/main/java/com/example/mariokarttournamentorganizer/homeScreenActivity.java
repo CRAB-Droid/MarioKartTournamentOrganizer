@@ -40,9 +40,12 @@ public class homeScreenActivity extends AppCompatActivity {
 
         ////////////Hard coding array values/////////////////////////
         ///////////////////DELETE LATER//////////////////////////////
-        upcomingArray[0] = "Upcoming Event 1";
-        upcomingArray[1] = "Upcoming Event 2";
-        upcomingArray[2] = "Upcoming Event 3";
+//        upcomingArray[0] = "Upcoming Event 1";
+//        upcomingArray[1] = "Upcoming Event 2";
+//        upcomingArray[2] = "Upcoming Event 3";
+        for(int i = 0; i<10; i++){
+            upcomingArray[i] = "Upcoming Event " + i;
+        }
 
         for(int i = 0; i<10; i++){
             pastArray[i] = "Past Event " + i;

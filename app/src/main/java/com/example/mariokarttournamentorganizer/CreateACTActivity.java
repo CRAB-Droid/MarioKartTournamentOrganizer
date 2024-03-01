@@ -1,5 +1,6 @@
 package com.example.mariokarttournamentorganizer;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
@@ -36,6 +37,10 @@ public class CreateACTActivity extends AppCompatActivity {
             if(!dateStr.isEmpty() && !timeStr.isEmpty() && !locationStr.isEmpty()) {
                 //TODO Setup button to store input activity into database
                 //Maybe also add checks or change input type for time to be valid times (1-12 hrs, 0-59 min)??
+
+                //Go back to home screen after created
+                Intent homeScreen = new Intent(this, homeScreenActivity.class);
+                startActivity(homeScreen);
             }
             else {
                 Toast.makeText(CreateACTActivity.this,

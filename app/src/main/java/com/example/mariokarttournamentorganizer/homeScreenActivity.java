@@ -83,14 +83,20 @@ public class homeScreenActivity extends AppCompatActivity {
         });
         ////////////////////////////////////////////////////////////
 
-
-        createACTButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //switchToStateXXX();
-                upcomingArray[0] = "weird";
-            }
-        });
+          createACTButton.setOnClickListener(v->
+          {
+              Intent CreateACT = new Intent(this, CreateACTActivity.class);
+              startActivity(CreateACT);
+          });
+//        createACTButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent CreateACT = new Intent(this, CreateACTActivity.class);
+//                startActivity(CreateACT);
+//                //switchToStateCreateACT();
+//                //upcomingArray[0] = "weird";
+//            }
+//        });
     }
 
     ///////////////////Handling Arrays////////////////
@@ -105,10 +111,10 @@ public class homeScreenActivity extends AppCompatActivity {
 
 
     /////////////////Switching Screens////////////////
-    private void switchToStateXXX(){
-        //Intent toNextState = new Intent(this, XXX.class);
-        //startActivity(XXX);
-    }
+//    private void switchToStateCreateACT(){
+//        Intent CreateACT = new Intent(this, CreateACTActivity.class);
+//        startActivity(CreateACT);
+//    }
     //////////////////////////////////////////////////
 
 }

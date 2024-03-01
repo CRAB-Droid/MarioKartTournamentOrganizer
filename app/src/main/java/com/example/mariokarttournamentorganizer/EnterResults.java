@@ -1,5 +1,6 @@
 package com.example.mariokarttournamentorganizer;
 
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -15,7 +16,7 @@ public class EnterResults extends AppCompatActivity {
 
     private Button submit;
 
-    //private Button photo;
+    private Button photo;
 
     private String resultsStr;
 
@@ -32,17 +33,18 @@ public class EnterResults extends AppCompatActivity {
         {
             resultsStr = results.getText().toString();
             if (!resultsStr.isEmpty()) {
-                //TODO Setup button to store results into database
+                //TODO
             } else {
                 Toast.makeText(EnterResults.this,
                         "Please fill out necessary field.", Toast.LENGTH_SHORT).show();
             }
         });
 
-//        photo = (Button) findViewById(R.id.photoButton);
-//        photo.setOnClickListener(v->
-//        {
-//        });
+        photo = (Button) findViewById(R.id.photoButton);
+        photo.setOnClickListener(v->
+        {
+            //TODO
+        });
     }
 }
 

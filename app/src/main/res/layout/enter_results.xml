@@ -45,6 +45,7 @@
         android:layout_marginEnd="146dp"
         android:layout_marginBottom="158dp"
         android:text="Take Photo"
+        android:backgroundTint="@color/red"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

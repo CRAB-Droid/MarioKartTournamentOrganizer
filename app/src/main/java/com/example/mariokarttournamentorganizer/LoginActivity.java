@@ -53,7 +53,7 @@ public class LoginActivity extends AppCompatActivity {
 //                  //Correct already made user and password
 //                  else if (userNameStr == username[i] && passWordStr == username[i].password)
 //                      //Create intent and move to main screen with users account
-                    Intent intentUser = new Intent(this, MainActivity.class);
+                    Intent intentUser = new Intent(this, homeScreenActivity.class);
                     intentUser.putExtra("Username", userNameStr);
                     intentUser.putExtra("Password", passWordStr);
                     startActivity(intentUser);

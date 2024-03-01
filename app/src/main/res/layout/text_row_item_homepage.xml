@@ -21,7 +21,8 @@
         android:layout_height="wrap_content"
         android:paddingLeft="16dp"
         android:paddingRight="16dp"
-        android:text="Inspect"
-        android:textSize="14sp" />
+        android:text="View"
+        android:textSize="14sp"
+        android:backgroundTint="@color/blue"/>
 
 </LinearLayout>

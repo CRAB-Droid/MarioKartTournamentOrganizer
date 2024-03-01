@@ -29,6 +29,9 @@
         <activity
             android:name=".SignupActivity"
             android:parentActivityName=".LoginActivity"/>
+        <activity
+            android:name=".homeScreenActivity"
+            android:parentActivityName=".LoginActivity"/>
     </application>
 
 </manifest>

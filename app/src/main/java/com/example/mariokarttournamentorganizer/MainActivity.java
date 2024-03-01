@@ -1,11 +1,13 @@
 package com.example.mariokarttournamentorganizer;
 
 import static android.content.Intent.ACTION_SEND;
+import static android.provider.MediaStore.Files.FileColumns.MEDIA_TYPE_IMAGE;
 
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.ContentValues;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -18,11 +20,15 @@ import android.widget.ImageView;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 public class MainActivity extends AppCompatActivity {
 
     private ImageView imageView;
     private Button button;
+    private Uri imageUri;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,72 +37,51 @@ public class MainActivity extends AppCompatActivity {
         imageView = findViewById(R.id.myImage);
         button = findViewById(R.id.myButton);
 
+        // Set up photo location in gallery
+        ContentValues values = new ContentValues();
+        values.put(MediaStore.Images.Media.TITLE, "jersey_swap");
+        values.put(MediaStore.Images.Media.DESCRIPTION, "winners_of_ACT");
+        imageUri = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
+
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Uri uri = null;
-                Intent open_camera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                open_camera.putExtra(MediaStore.EXTRA_OUTPUT, uri);
-                cameraLauncher.launch(open_camera);
+                takeAndSavePhoto();
             }
         });
 
     }
-    ActivityResultLauncher<Intent> cameraLauncher = registerForActivityResult(
+    ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
             result -> {
                 if (result.getResultCode() == RESULT_OK && result.getData() != null) {
-                    
-                    Bundle bundle = result.getData().getExtras();
-                    processImage(bundle);
+                    // Photo taken and saved, time to post!
+                    postToInstagram();
+                } else {
+                    Log.e("MainActivity", "Activity Result NOT OK");
                 }
-            }
-    );
+            });
 
-    void processImage(Bundle bundle) {
-        Bitmap photo = (Bitmap) bundle.get("data");
-//        imageView.setImageBitmap(photo);
+    protected void takeAndSavePhoto() {
+        Bundle resultOptions = new Bundle();
+        Intent openCamera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        openCamera.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
 
-        // Get photo into Uri form
-        ContentValues values = new ContentValues();
-        values.put(MediaStore.Images.Media.DISPLAY_NAME, "MyPhoto");
-        values.put(MediaStore.Images.Media.MIME_TYPE, "image/*");
-        Uri uri = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
-
-        // Log to double check something is in the Uri
-        if (uri != null) {
-            String uriString = uri.toString();
-            Log.d("MainActivity", "Uri: " + uriString);
-        } else {
-            Log.e("MainActivity", "Uri is null");
-        }
-
-        // Post to Insta stories
-        postToInstagram(uri);
+        // Take and save photo
+        activityResultLauncher.launch(openCamera);
     }
 
-
-
-    void postToInstagram(Uri uri) {
-        // background asset means the main photo on the story,
-            // sticker asset is the alternative
-
-        // Instantiate an intent
+    void postToInstagram() {
         Intent share = new Intent(ACTION_SEND);
         share.setAction(ACTION_SEND);
         share.setType("image/*");
+        share.putExtra("source_application", "@string/facebook_app_id");
+        share.putExtra(Intent.EXTRA_STREAM, imageUri);
 
-        // Attach your App ID to the intent
-        String sourceApplication = "@string/facebook_app_id"; // This is your application's FB ID
-        share.putExtra("source_application", sourceApplication);
-        share.putExtra(Intent.EXTRA_STREAM, uri);
-
-        // Try to invoke the intent.
         try {
             startActivity(Intent.createChooser(share, "Share to"));
         } catch (ActivityNotFoundException e) {
             Log.e("MainActivity", "ActivityNotFoundException");
-            // Define what your app should do if no activity can handle the intent.
         }
     }
 }

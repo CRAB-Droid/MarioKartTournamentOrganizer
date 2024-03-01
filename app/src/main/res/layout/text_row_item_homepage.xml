@@ -15,12 +15,13 @@
         android:layout_weight="1"
         />
 
-<!--    <Button-->
-<!--        android:id="@+id/message_button"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:paddingLeft="16dp"-->
-<!--        android:paddingRight="16dp"-->
-<!--        android:textSize="10sp"-->
-<!--        />-->
+    <Button
+        android:id="@+id/inspect_ACT_Button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:text="Inspect"
+        android:textSize="14sp" />
+
 </LinearLayout>

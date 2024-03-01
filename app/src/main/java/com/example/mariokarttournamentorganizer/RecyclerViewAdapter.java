@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -24,12 +25,14 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
      */
     public static class ViewHolder extends RecyclerView.ViewHolder {
         private TextView textView;
+        private Button inspectACTButton;
 
         public ViewHolder(View view) {
             super(view);
             // Define click listener for the ViewHolder's View
 
             textView = (TextView) itemView.findViewById(R.id.contact_name);
+            inspectACTButton = (Button) itemView.findViewById(R.id.inspect_ACT_Button);
         }
 
         public TextView getTextView() {
@@ -67,6 +70,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         TextView textView = viewHolder.textView;
         textView.setText(localDataSet[position]);
+
+        Button inspectACT = viewHolder.inspectACTButton;
     }
 
     // Return the size of your dataset (invoked by the layout manager)
@@ -80,4 +85,5 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         localDataSet = Arrays.copyOf(localDataSet, oldLength + newData.length);
         System.arraycopy(newData, 0, localDataSet, oldLength, newData.length);
     }
+
 }

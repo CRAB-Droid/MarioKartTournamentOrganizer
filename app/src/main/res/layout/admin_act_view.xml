@@ -20,10 +20,10 @@
 
     <TextView
         android:id="@+id/whoTextView"
-        android:layout_width="241dp"
-        android:layout_height="80dp"
+        android:layout_width="246dp"
+        android:layout_height="155dp"
         android:gravity="center"
-        android:hint="Who is attending"
+        android:hint="4 teams"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.905"
@@ -35,7 +35,8 @@
         android:id="@+id/genericText1"
         android:layout_width="106dp"
         android:layout_height="79dp"
-        android:text="Who"
+        android:text="Teams"
+        android:textSize="20dp"
         android:textAlignment="center"
         android:gravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -50,6 +51,7 @@
         android:layout_width="106dp"
         android:layout_height="79dp"
         android:text="When"
+        android:textSize="20dp"
         android:gravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -60,14 +62,16 @@
 
     <Button
         android:id="@+id/enterResultButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="259dp"
+        android:layout_height="64dp"
+        android:backgroundTint="@color/red"
         android:gravity="center"
         android:text="Enter Results"
+        android:textSize="24dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.553"
+        app:layout_constraintHorizontal_bias="0.559"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.809" />
+        app:layout_constraintVertical_bias="0.869" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,5 +1,6 @@
 package com.example.mariokarttournamentorganizer;
 
+import android.content.Intent;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -43,6 +44,8 @@ public class EnterResultsActivity extends AppCompatActivity {
         photo.setOnClickListener(v->
         {
             //TODO
+            Intent camera = new Intent(this, CameraActivity.class);
+            startActivity(camera);
         });
     }
 }

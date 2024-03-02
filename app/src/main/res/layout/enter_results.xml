@@ -24,11 +24,12 @@
     <EditText
         android:id="@+id/resultsInputEditTextNumber"
         android:layout_width="312dp"
-        android:layout_height="32dp"
+        android:layout_height="48dp"
         android:layout_marginStart="78dp"
         android:layout_marginEnd="123dp"
         android:ems="10"
         android:inputType="number"
+        android:hint="Number"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.274"

@@ -38,6 +38,9 @@
         <activity
             android:name=".UserACTActivity"
             android:parentActivityName=".homeScreenActivity"/>
+        <activity
+            android:name=".adminActViewActivity"
+            android:parentActivityName=".homeScreenActivity"/>
     </application>
 
 </manifest>

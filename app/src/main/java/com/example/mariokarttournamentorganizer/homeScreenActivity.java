@@ -38,7 +38,7 @@ public class homeScreenActivity extends AppCompatActivity {
         infoTextView = findViewById(R.id.infoTextView);
 
         Intent currACT = new Intent(this, UserACTActivity.class);
-        Intent pastACT = new Intent(this, UserACTActivity.class);
+        Intent pastACT = new Intent(this, adminActViewActivity.class);
 
 
         ////////////Hard coding array values/////////////////////////

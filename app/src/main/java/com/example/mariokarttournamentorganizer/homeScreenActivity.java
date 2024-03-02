@@ -37,8 +37,8 @@ public class homeScreenActivity extends AppCompatActivity {
         pastRecyclerView = (RecyclerView) findViewById(R.id.pastRecyclerView);
         infoTextView = findViewById(R.id.infoTextView);
 
-        Intent currACT = new Intent(this, CreateACTActivity.class);
-        Intent pastACT = new Intent(this, CreateACTActivity.class);
+        Intent currACT = new Intent(this, UserACTActivity.class);
+        Intent pastACT = new Intent(this, UserACTActivity.class);
 
 
         ////////////Hard coding array values/////////////////////////

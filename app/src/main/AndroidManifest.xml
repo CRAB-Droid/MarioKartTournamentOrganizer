@@ -35,6 +35,9 @@
         <activity
             android:name=".CreateACTActivity"
             android:parentActivityName=".homeScreenActivity"/>
+        <activity
+            android:name=".UserACTActivity"
+            android:parentActivityName=".homeScreenActivity"/>
     </application>
 
 </manifest>

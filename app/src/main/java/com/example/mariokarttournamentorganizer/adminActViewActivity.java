@@ -12,6 +12,8 @@ public class adminActViewActivity extends AppCompatActivity {
     TextView whoTextView;
     //Text that shows when the event will be.
     TextView whenTextView;
+    //Text that shows where the event will be
+    TextView whereTextView;
     //Button that will change to screen where results are inputted.
     Button enterResultsButton;
     @Override
@@ -19,8 +21,9 @@ public class adminActViewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.admin_act_view);
 
-        whoTextView = findViewById(R.id.whoTextView);
-        whenTextView = findViewById(R.id.whenTextView);
+        whoTextView = findViewById(R.id.whoTextViewInfo);
+        whenTextView = findViewById(R.id.whenTextViewInfo);
+        whereTextView = findViewById(R.id.whereTextViewInfo);
         enterResultsButton = findViewById(R.id.enterResultButton);
 
         enterResultsButton.setOnClickListener(new View.OnClickListener() {
@@ -38,6 +41,10 @@ public class adminActViewActivity extends AppCompatActivity {
 
     private void setWhenTextView(String string){
         whenTextView.setText(string);
+    }
+
+    private void setWhereTextView(String string){
+        whereTextView.setText(string);
     }
 
     /////////////////Switching Screens////////////////

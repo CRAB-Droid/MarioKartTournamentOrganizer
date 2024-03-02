@@ -1,6 +1,8 @@
 package com.example.mariokarttournamentorganizer;
 
 import android.content.Context;
+import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,6 +35,10 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
             textView = (TextView) itemView.findViewById(R.id.contact_name);
             inspectACTButton = (Button) itemView.findViewById(R.id.inspect_ACT_Button);
+            inspectACTButton.setOnClickListener(v->{
+//                Log.v("Hey", "YO");
+//                Intent currACT = new Intent(homeScreenActivity.class, CreateACTActivity.class)
+            });
         }
 
         public TextView getTextView() {

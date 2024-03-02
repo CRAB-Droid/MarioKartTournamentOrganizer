@@ -37,6 +37,9 @@ public class homeScreenActivity extends AppCompatActivity {
         pastRecyclerView = (RecyclerView) findViewById(R.id.pastRecyclerView);
         infoTextView = findViewById(R.id.infoTextView);
 
+        Intent currACT = new Intent(this, CreateACTActivity.class);
+        Intent pastACT = new Intent(this, CreateACTActivity.class);
+
 
         ////////////Hard coding array values/////////////////////////
         ///////////////////DELETE LATER//////////////////////////////
@@ -64,6 +67,7 @@ public class homeScreenActivity extends AppCompatActivity {
             @Override
             public void onItemClicked(RecyclerView recyclerView, int position, View v) {
                 infoTextView.setText(upcomingArray[position]);
+                startActivity(currACT);
             }
         });
         /////////////////////////////////////////////////////////////
@@ -79,6 +83,7 @@ public class homeScreenActivity extends AppCompatActivity {
             @Override
             public void onItemClicked(RecyclerView recyclerView, int position, View v) {
                 infoTextView.setText(pastArray[position]);
+                startActivity(pastACT);
             }
         });
         ////////////////////////////////////////////////////////////

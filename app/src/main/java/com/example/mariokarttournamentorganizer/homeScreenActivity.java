@@ -63,7 +63,7 @@ public class homeScreenActivity extends AppCompatActivity {
         ItemClickSupport.addTo(upcomingRecyclerView).setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
             @Override
             public void onItemClicked(RecyclerView recyclerView, int position, View v) {
-                infoTextView.setText(pastArray[position]);
+                infoTextView.setText(upcomingArray[position]);
             }
         });
         /////////////////////////////////////////////////////////////

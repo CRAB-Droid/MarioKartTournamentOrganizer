@@ -1,5 +1,6 @@
 package com.example.mariokarttournamentorganizer;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -28,8 +29,7 @@ public class adminActViewActivity extends AppCompatActivity {
 
         enterResultsButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                switchToStateXXX();
+            public void onClick(View view) { switchToStateXXX();
             }
         });
 
@@ -49,8 +49,8 @@ public class adminActViewActivity extends AppCompatActivity {
 
     /////////////////Switching Screens////////////////
     private void switchToStateXXX(){
-        //Intent toNextState = new Intent(this, XXX.class);
-        //startActivity(XXX);
+        Intent enterResults = new Intent(this, EnterResultsActivity.class);
+        startActivity(enterResults);
     }
     //////////////////////////////////////////////////
 

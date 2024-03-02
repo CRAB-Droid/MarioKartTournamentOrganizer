@@ -41,6 +41,9 @@
         <activity
             android:name=".adminActViewActivity"
             android:parentActivityName=".homeScreenActivity"/>
+        <activity
+            android:name=".EnterResultsActivity"
+            android:parentActivityName=".adminActViewActivity"/>
     </application>
 
 </manifest>

@@ -27,18 +27,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
      */
     public static class ViewHolder extends RecyclerView.ViewHolder {
         private TextView textView;
-        private Button inspectACTButton;
 
         public ViewHolder(View view) {
             super(view);
             // Define click listener for the ViewHolder's View
 
             textView = (TextView) itemView.findViewById(R.id.contact_name);
-            inspectACTButton = (Button) itemView.findViewById(R.id.inspect_ACT_Button);
-            inspectACTButton.setOnClickListener(v->{
-//                Log.v("Hey", "YO");
-//                Intent currACT = new Intent(homeScreenActivity.class, CreateACTActivity.class)
-            });
         }
 
         public TextView getTextView() {
@@ -77,7 +71,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         TextView textView = viewHolder.textView;
         textView.setText(localDataSet[position]);
 
-        Button inspectACT = viewHolder.inspectACTButton;
     }
 
     // Return the size of your dataset (invoked by the layout manager)

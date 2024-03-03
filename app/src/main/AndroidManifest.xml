@@ -25,6 +25,7 @@
         </activity>
         <activity
             android:name=".FirebaseDemoActivity"
+            android:parentActivityName=".MainActivity"
             android:exported="false"
             android:theme="@style/Theme.MarioKartTournamentOrganizer">
         </activity>

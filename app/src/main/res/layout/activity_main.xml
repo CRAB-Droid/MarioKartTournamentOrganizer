@@ -8,10 +8,9 @@
     tools:ignore="HardcodedText">
 
     <Button
-        android:id="@+id/goToFirebaseDemo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Fetch"
+        android:text="go to firebase demo"
         android:onClick="firebaseDemo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>

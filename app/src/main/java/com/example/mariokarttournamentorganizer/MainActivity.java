@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
-    public void firebaseDemo() {
+    public void firebaseDemo(View v) {
         Intent startDemo = new Intent(this, FirebaseDemoActivity.class);
         startActivity(startDemo);
     }

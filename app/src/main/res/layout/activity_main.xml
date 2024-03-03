@@ -4,60 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingStart="16dp"
-    android:paddingEnd="16dp"
     tools:context=".MainActivity"
     tools:ignore="HardcodedText">
 
-    <EditText
-        android:id="@+id/editTextAuthor"
-        android:layout_width="0dp"
-        android:layout_height="64dp"
-        android:hint="Name"
-        android:importantForAutofill="no"
-        android:inputType="text"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <EditText
-        android:id="@+id/editTextQuote"
-        android:layout_width="0dp"
-        android:layout_height="64dp"
-        android:inputType="text"
-        android:hint="Quote"
-        android:autofillHints="name"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextAuthor"/>
-
     <Button
-        android:id="@+id/saveButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Save"
-        android:onClick="saveQuote"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/editTextQuote"/>
-
-    <Button
-        android:id="@+id/fetchButton"
+        android:id="@+id/goToFirebaseDemo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Fetch"
-        android:onClick="fetchQuote"
+        android:onClick="firebaseDemo"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/saveButton"/>
+        app:layout_constraintTop_toTopOf="parent"/>
 
-    <TextView
-        android:id="@+id/textViewInspiring"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Inspirational quote goes here!"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/fetchButton" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

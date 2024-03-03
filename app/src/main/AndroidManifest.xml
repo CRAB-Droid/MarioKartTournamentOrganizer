@@ -24,6 +24,9 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".FirebaseDemoActivity"
+            android:parentActivityName=".homeScreenActivity">
+        </activity>
             android:name=".MainActivity"
             android:parentActivityName=".LoginActivity"/>
         <activity

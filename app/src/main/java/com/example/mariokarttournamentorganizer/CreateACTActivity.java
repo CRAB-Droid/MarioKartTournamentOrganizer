@@ -12,8 +12,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -37,6 +40,7 @@ public class CreateACTActivity extends AppCompatActivity {
     public static final String TAG = "creatingACT";
     public static final String COMPLETED_FIELD = "completed";
     public static final String RESULT_FIELD = "result";
+    public static final String TIMESTAMP_FIELD = "Date/Time";
 
     private FirebaseFirestore mDocRef = FirebaseFirestore.getInstance();
 
@@ -51,11 +55,19 @@ public class CreateACTActivity extends AppCompatActivity {
         time = (EditText) findViewById(R.id.editTextTime);
         location = (EditText) findViewById(R.id.editTextLocation);
 
-        //finding which act will be created
-//        boolean notFound = true;
-//        for (int i = 1; notFound; i++){
-//
-//        }
+        //getting most recent act, to see which will be created next and to generate the ID
+//        mDocRef.collection("act_objects")
+//                .orderBy(TIMESTAMP_FIELD, Query.Direction.DESCENDING)
+//                .limit(1)
+//                .get()
+//                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+//                    @Override
+//                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+//                        // DocumentSnapshot has info related to document that we're fetching from db
+//                        if (documentSnapshot.exists()) {
+//                        }
+//                    }
+//                });
 
 
         //Set up create button
@@ -72,6 +84,7 @@ public class CreateACTActivity extends AppCompatActivity {
                 Map<String, Object> act1 = new HashMap<>();
                 act1.put(ID_FIELD, 1);
                 act1.put(ADMIN_FIELD, 3);
+                act1.put(TIMESTAMP_FIELD, Timestamp.now());
                 act1.put(COMPLETED_FIELD, false); //default
                 act1.put(DATE_FIELD, dateStr);
                 act1.put(TIME_FIELD, timeStr);

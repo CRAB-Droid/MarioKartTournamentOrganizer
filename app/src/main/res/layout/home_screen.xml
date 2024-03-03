@@ -17,25 +17,44 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.622" />
 
+    <!--Delete after all firebase features working-->
+
+    <!--Switch the line below with the firebaseDemoButton constraint when firebase demo removed-->
+<!--app:layout_constraintBottom_toBottomOf="parent"-->
+
     <Button
         android:id="@+id/createACTButton"
         android:layout_width="139dp"
         android:layout_height="67dp"
-        android:layout_marginBottom="28dp"
+        android:layout_marginBottom="88dp"
         android:backgroundTint="@color/red"
         android:text="Create ACT"
         android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.903"
+        app:layout_constraintHorizontal_bias="0.86"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/firebaseDemoButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="firebaseDemo"
+        android:text="go to firebase demo"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/upcomingRecyclerView"
+        app:layout_constraintHorizontal_bias="0.54"
+        app:layout_constraintVertical_bias="0.957" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/upcomingRecyclerView"
         android:layout_width="347dp"
         android:layout_height="204dp"
+        android:layout_marginTop="64dp"
         android:background="#C8CFF4"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/textView2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -43,15 +62,15 @@
 
     <TextView
         android:id="@+id/infoTextView"
-        android:layout_width="146dp"
-        android:layout_height="140dp"
+        android:layout_width="145dp"
+        android:layout_height="77dp"
         android:hint="Currently selected ACT"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.143"
+        app:layout_constraintHorizontal_bias="0.142"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.952" />
+        app:layout_constraintVertical_bias="0.828" />
 
     <TextView
         android:id="@+id/textView"

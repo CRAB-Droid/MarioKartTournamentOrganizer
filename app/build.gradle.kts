@@ -52,4 +52,5 @@ dependencies {
     // https://firebase.google.com/docs/android/setup#available-libraries
     implementation("com.google.firebase:firebase-analytics")
     implementation("com.google.firebase:firebase-firestore:24.10.2")
+    implementation("com.google.firebase:firebase-auth")
 }

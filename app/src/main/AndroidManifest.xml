@@ -13,7 +13,7 @@
         android:theme="@style/Theme.MarioKartTournamentOrganizer"
         tools:targetApi="31">
         <activity
-            android:name=".MainActivity"
+            android:name=".LoginActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.MarioKartTournamentOrganizer">
@@ -25,10 +25,31 @@
         </activity>
         <activity
             android:name=".FirebaseDemoActivity"
-            android:parentActivityName=".MainActivity"
-            android:exported="false"
-            android:theme="@style/Theme.MarioKartTournamentOrganizer">
+            android:parentActivityName=".homeScreenActivity">
         </activity>
+            android:name=".MainActivity"
+            android:parentActivityName=".LoginActivity"/>
+        <activity
+            android:name=".SignupActivity"
+            android:parentActivityName=".LoginActivity"/>
+        <activity
+            android:name=".homeScreenActivity"
+            android:parentActivityName=".LoginActivity"/>
+        <activity
+            android:name=".CreateACTActivity"
+            android:parentActivityName=".homeScreenActivity"/>
+        <activity
+            android:name=".UserACTActivity"
+            android:parentActivityName=".homeScreenActivity"/>
+        <activity
+            android:name=".adminActViewActivity"
+            android:parentActivityName=".homeScreenActivity"/>
+        <activity
+            android:name=".EnterResultsActivity"
+            android:parentActivityName=".adminActViewActivity"/>
+        <activity
+            android:name=".CameraActivity"
+            android:parentActivityName=".EnterResultsActivity"/>
     </application>
 
 </manifest>

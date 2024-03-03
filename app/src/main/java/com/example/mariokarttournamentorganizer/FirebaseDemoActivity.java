@@ -101,6 +101,6 @@ public class FirebaseDemoActivity extends AppCompatActivity {
             }
         });
 
-        Log.d("MainActivity", "Quote saved");
+        Log.d("FirebaseDemoActivity", "Quote saved");
     }
 }

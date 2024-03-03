@@ -122,4 +122,10 @@ public class homeScreenActivity extends AppCompatActivity {
 //    }
     //////////////////////////////////////////////////
 
+    public void firebaseDemo(View v) { // Delete when the demo is gone
+        Intent startDemo = new Intent(this, FirebaseDemoActivity.class);
+        startActivity(startDemo);
+    }
+
+
 }

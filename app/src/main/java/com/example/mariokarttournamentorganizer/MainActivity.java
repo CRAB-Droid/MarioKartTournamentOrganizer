@@ -2,6 +2,7 @@ package com.example.mariokarttournamentorganizer;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -24,10 +25,4 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
     }
-
-    public void firebaseDemo(View v) {
-        Intent startDemo = new Intent(this, FirebaseDemoActivity.class);
-        startActivity(startDemo);
-    }
-
 }

@@ -18,7 +18,7 @@ public class ViewACTActivity extends AppCompatActivity {
     private Button addToCalendar;
     private Button joinOrResults;
     private boolean admin = false; // HARDCODED, just for testing. Fetch based on auth from firebase
-    private boolean complete = false; // HARDCODED, just for testing. Fetch based on auth from firebase
+    private boolean complete = false; // HARDCODED, just for testing. Fetch based on ACT ID from firebase
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +40,11 @@ public class ViewACTActivity extends AppCompatActivity {
             joinOrResults.setVisibility(View.GONE);
             return;
         }
+
         // ACT is still upcoming:
+
+        resultTextViewHeader.setVisibility(View.GONE);
+        resultTextView.setVisibility(View.GONE);
 
         addToCalendar.setOnClickListener(v-> addToCalendar());
 

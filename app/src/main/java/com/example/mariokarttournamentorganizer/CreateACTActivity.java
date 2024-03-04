@@ -10,13 +10,17 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.EventListener;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -42,8 +46,7 @@ public class CreateACTActivity extends AppCompatActivity {
     public static final String RESULT_FIELD = "result";
     public static final String TIMESTAMP_FIELD = "Date/Time";
 
-    private FirebaseFirestore mDocRef = FirebaseFirestore.getInstance();
-
+    private FirebaseFirestore myFireStore = FirebaseFirestore.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,21 +58,6 @@ public class CreateACTActivity extends AppCompatActivity {
         time = (EditText) findViewById(R.id.editTextTime);
         location = (EditText) findViewById(R.id.editTextLocation);
 
-        //getting most recent act, to see which will be created next and to generate the ID
-//        mDocRef.collection("act_objects")
-//                .orderBy(TIMESTAMP_FIELD, Query.Direction.DESCENDING)
-//                .limit(1)
-//                .get()
-//                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-//                    @Override
-//                    public void onSuccess(DocumentSnapshot documentSnapshot) {
-//                        // DocumentSnapshot has info related to document that we're fetching from db
-//                        if (documentSnapshot.exists()) {
-//                        }
-//                    }
-//                });
-
-
         //Set up create button
         createButton = (Button) findViewById(R.id.createButton);
         createButton.setOnClickListener(v->
@@ -77,12 +65,18 @@ public class CreateACTActivity extends AppCompatActivity {
             dateStr = date.getText().toString();
             timeStr = time.getText().toString();
             locationStr = location.getText().toString();
+
+//            myFireStore.collection("act_objects")
+//                    .orderBy(TIMESTAMP_FIELD, Query.Direction.DESCENDING)
+//                    .limit(1)
+//                    .get();
+
             if(!dateStr.isEmpty() && !timeStr.isEmpty() && !locationStr.isEmpty()) {
                 //TODO Setup button to store input activity into database
 
                 //creating a new document in firebase
                 Map<String, Object> act1 = new HashMap<>();
-                act1.put(ID_FIELD, 1);
+                act1.put(ID_FIELD, "1");
                 act1.put(ADMIN_FIELD, 3);
                 act1.put(TIMESTAMP_FIELD, Timestamp.now());
                 act1.put(COMPLETED_FIELD, false); //default
@@ -92,7 +86,7 @@ public class CreateACTActivity extends AppCompatActivity {
                 act1.put(PLAYERS_FIELD,null); //this will be default, need to figure out inputting array
                 act1.put(RESULT_FIELD, null);
 
-                mDocRef.collection("act_objects").document("act1")
+                myFireStore.collection("act_objects").document("act1")
                         .set(act1)
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
@@ -119,4 +113,13 @@ public class CreateACTActivity extends AppCompatActivity {
             }
         });
     }
+
+//    public void getMostRecent() {
+//        //getting most recent act, to see which will be created next and to generate the ID
+//        myFireStore.collection("act_objects")
+//                .orderBy(TIMESTAMP_FIELD, Query.Direction.DESCENDING)
+//                .limit(1)
+//                .get();
+//
+//    }
 }

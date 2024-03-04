@@ -25,6 +25,9 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.EventListener;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -91,46 +94,56 @@ public class CreateACTActivity extends AppCompatActivity {
             timeStr = time.getText().toString();
             locationStr = location.getText().toString();
 
-            if(!dateStr.isEmpty() && !timeStr.isEmpty() && !locationStr.isEmpty()) {
+            try {
+                if(!dateStr.isEmpty() && !timeStr.isEmpty() && !locationStr.isEmpty() && checkDate(dateStr)) {
 
-                //creating a new document in firebase
-                Map<String, Object> act1 = new HashMap<>();
-                act1.put(ID_FIELD, count);
-                act1.put(ADMIN_FIELD, 3);
-                act1.put(TIMESTAMP_FIELD, Timestamp.now());
-                act1.put(COMPLETED_FIELD, false); //default
-                act1.put(DATE_FIELD, dateStr);
-                act1.put(TIME_FIELD, timeStr);
-                act1.put(LOCATION_FIELD, locationStr);
-                act1.put(PLAYERS_FIELD,null); //this will be default, need to figure out inputting array
-                act1.put(RESULT_FIELD, null);
+                    //creating a new document in firebase
+                    Map<String, Object> act1 = new HashMap<>();
+                    act1.put(ID_FIELD, count);
+                    act1.put(ADMIN_FIELD, 3);
+                    act1.put(TIMESTAMP_FIELD, Timestamp.now());
+                    act1.put(COMPLETED_FIELD, false); //default
+                    act1.put(DATE_FIELD, dateStr);
+                    act1.put(TIME_FIELD, timeStr);
+                    act1.put(LOCATION_FIELD, locationStr);
+                    act1.put(PLAYERS_FIELD,null); //this will be default, need to figure out inputting array
+                    act1.put(RESULT_FIELD, null);
 
-                myFireStore.collection("act_objects").document(docPath)
-                        .set(act1)
-                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void aVoid) {
-                                Log.d(TAG, "DocumentSnapshot successfully written!");
-                            }
-                        })
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Log.w(TAG, "Error writing document", e);
-                            }
-                        });
+                    myFireStore.collection("act_objects").document("act6")
+                            .set(act1)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Log.d(TAG, "DocumentSnapshot successfully written!");
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.w(TAG, "Error writing document", e);
+                                }
+                            });
 
-                //Maybe also add checks or change input type for time to be valid times (1-12 hrs, 0-59 min)??
-
-                //Go back to home screen after created
-                Intent homeScreen = new Intent(this, homeScreenActivity.class);
-                startActivity(homeScreen);
-            }
-            else {
-                Toast.makeText(CreateACTActivity.this,
-                        "Please fill out all necessary fields.", Toast.LENGTH_SHORT).show();
+                    //Go back to home screen after created
+                    Intent homeScreen = new Intent(this, homeScreenActivity.class);
+                    startActivity(homeScreen);
+                }
+                else {
+                    Toast.makeText(CreateACTActivity.this,
+                            "Please fill out all necessary fields with valid inputs.", Toast.LENGTH_SHORT).show();
+                }
+            } catch (ParseException e) {
+                throw new RuntimeException(e);
             }
         });
     }
+
+    //checks to see if the inputted date is valid and in the future
+    public static boolean checkDate(String dateString) throws ParseException {
+        Date inputtedDate = new SimpleDateFormat("MM/dd/yyyy").parse(dateString);
+        return new Date().before(inputtedDate);
+    }
+
+    //TODO check to see if the inputted time is valid
 
 }

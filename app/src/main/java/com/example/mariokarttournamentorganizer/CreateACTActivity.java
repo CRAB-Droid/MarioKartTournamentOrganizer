@@ -39,8 +39,6 @@ public class CreateACTActivity extends AppCompatActivity {
     private String timeStr;
     private EditText location;
     private String locationStr;
-    private long count;
-    private String docPath;
 
     //for firebase
     public static final String ID_FIELD = "ID";
@@ -53,6 +51,8 @@ public class CreateACTActivity extends AppCompatActivity {
     public static final String COMPLETED_FIELD = "completed";
     public static final String RESULT_FIELD = "result";
     public static final String TIMESTAMP_FIELD = "Date/Time";
+    private long count;
+    private String docPath;
 
     private FirebaseFirestore myFireStore = FirebaseFirestore.getInstance();
 
@@ -61,6 +61,13 @@ public class CreateACTActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.createact);
+
+        Intent loginInfoIntent = getIntent();
+        String usernameStr = loginInfoIntent.getStringExtra("Username");
+
+        //getting the username from the homescreen
+        Log.d(TAG, "username: " + usernameStr);
+        String[] playersArray = {usernameStr};
 
         //Setup input fields
         date = (EditText) findViewById(R.id.editTextDate);
@@ -86,6 +93,9 @@ public class CreateACTActivity extends AppCompatActivity {
             }
         });
 
+        //adds admin/creator's account into the player's array
+
+
         //Set up create button
         createButton = (Button) findViewById(R.id.createButton);
         createButton.setOnClickListener(v->
@@ -100,16 +110,16 @@ public class CreateACTActivity extends AppCompatActivity {
                     //creating a new document in firebase
                     Map<String, Object> act1 = new HashMap<>();
                     act1.put(ID_FIELD, count);
-                    act1.put(ADMIN_FIELD, 3);
+                    act1.put(ADMIN_FIELD, 123);
                     act1.put(TIMESTAMP_FIELD, Timestamp.now());
                     act1.put(COMPLETED_FIELD, false); //default
                     act1.put(DATE_FIELD, dateStr);
                     act1.put(TIME_FIELD, timeStr);
                     act1.put(LOCATION_FIELD, locationStr);
-                    act1.put(PLAYERS_FIELD,null); //this will be default, need to figure out inputting array
+                    act1.put(PLAYERS_FIELD,null);
                     act1.put(RESULT_FIELD, null);
 
-                    myFireStore.collection("act_objects").document("act6")
+                    myFireStore.collection("act_objects").document(docPath)
                             .set(act1)
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
@@ -143,7 +153,5 @@ public class CreateACTActivity extends AppCompatActivity {
         Date inputtedDate = new SimpleDateFormat("MM/dd/yyyy").parse(dateString);
         return new Date().before(inputtedDate);
     }
-
-    //TODO check to see if the inputted time is valid
 
 }

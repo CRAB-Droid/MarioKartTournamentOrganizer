@@ -32,6 +32,9 @@ public class homeScreenActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home_screen);
 
+        Intent loginIntent = getIntent();
+        String usernameStr = loginIntent.getStringExtra("Username");
+
         createACTButton = findViewById(R.id.createACTButton);
         upcomingRecyclerView = (RecyclerView) findViewById(R.id.upcomingRecyclerView);
         pastRecyclerView = (RecyclerView) findViewById(R.id.pastRecyclerView);
@@ -91,6 +94,7 @@ public class homeScreenActivity extends AppCompatActivity {
           createACTButton.setOnClickListener(v->
           {
               Intent CreateACT = new Intent(this, CreateACTActivity.class);
+              CreateACT.putExtra("Username", usernameStr);
               startActivity(CreateACT);
           });
 //        createACTButton.setOnClickListener(new View.OnClickListener() {

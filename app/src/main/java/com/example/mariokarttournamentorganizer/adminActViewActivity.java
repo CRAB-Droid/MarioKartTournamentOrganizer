@@ -7,6 +7,10 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import java.util.HashMap;
+import java.util.Map;
+
 public class adminActViewActivity extends AppCompatActivity {
 
     //Text that shows who is attending the event.
@@ -17,6 +21,9 @@ public class adminActViewActivity extends AppCompatActivity {
     TextView whereTextView;
     //Button that will change to screen where results are inputted.
     Button enterResultsButton;
+
+    TextView test1;
+    TextView test2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,12 +34,27 @@ public class adminActViewActivity extends AppCompatActivity {
         whereTextView = findViewById(R.id.whereTextViewInfo);
         enterResultsButton = findViewById(R.id.enterResultButton);
 
+        test1 = findViewById(R.id.testTextView1);
+        test2 = findViewById(R.id.testTextView2);
+
         enterResultsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) { switchToStateXXX();
             }
         });
 
+        test1.setText("Name of ACT: " + getIntent().getStringExtra("name"));
+
+        HashMap<String, Object> testHashMap = (HashMap<String, Object>) getIntent().getSerializableExtra("data");
+        StringBuilder stringBuilder = new StringBuilder();
+        for (Map.Entry<String, Object> hashMap : testHashMap.entrySet()) {
+            stringBuilder.append(hashMap.getKey())
+                    .append(": ")
+                    .append(hashMap.getValue())
+                    .append("\n");
+        }
+
+        test2.setText(stringBuilder.toString());
     }
 
     private void setWhoTextView(String string){

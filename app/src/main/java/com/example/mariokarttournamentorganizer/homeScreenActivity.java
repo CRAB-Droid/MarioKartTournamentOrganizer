@@ -42,38 +42,11 @@ public class homeScreenActivity extends AppCompatActivity {
     String [] upcomingArray = new String[10];
     public String [] pastArray = new String[10];
 
-//    ArrayList<String> upcomingArray = new ArrayList<>();
-//    ArrayList<String> pastArray = new ArrayList<>();
-
     public static final String ACTNAME_KEY = "name";
     public static final String DATE_KEY = "Date/Time";
     //private CollectionReference colllectionRef = FirebaseFirestore.getInstance().collection("act_objects");
     private CollectionReference collection = FirebaseFirestore.getInstance().collection("act_objects");
     //private CollectionReference collectionRef = dataBase.collection("act_objects");
-
-    //Not sure how to utilize this yet.
-    @Override
-    protected void onStart() {
-        super.onStart();
-
-        collection
-                //.whereEqualTo("state", "CA")
-                .addSnapshotListener(new EventListener<QuerySnapshot>() {
-                    @Override
-                    public void onEvent(@Nullable QuerySnapshot value,
-                                        @Nullable FirebaseFirestoreException e) {
-                        if (e != null) {
-                            Log.w("TAG", "Listen failed.", e);
-                            return;
-                        }
-
-                        for (QueryDocumentSnapshot doc : value) {
-                            //do something
-                            Log.i("TAG", "Something updated");
-                        }
-                    }
-                });
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -180,26 +153,32 @@ public class homeScreenActivity extends AppCompatActivity {
                     Log.i("Incorrect Declaration: boolean",
                             "'Completed' field not filled out correctly in Firebase.");
                 }
-
-                //System.out.println("Inner Key: " + innerKey + ", Inner Value: " + innerValue);
             }
         }
+        //Declare Intents
         Intent pastACT = new Intent(this, adminActViewActivity.class);
         Intent currACT = new Intent(this, UserACTActivity.class);
-
+        //Initialize recycleViews
         RecyclerViewAdapter pastCustomAdapter = new RecyclerViewAdapter(pastArray);
         RecyclerViewAdapter upcomingCustomAdapter = new RecyclerViewAdapter(upcomingArray);
-
+        //Set custom adapter.
         pastRecyclerView.setAdapter(pastCustomAdapter);
         upcomingRecyclerView.setAdapter(upcomingCustomAdapter);
 
         pastRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         upcomingRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+        //On click listener for each row in pastRecyclerView.
         ItemClickSupport.addTo(pastRecyclerView).setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
             @Override
             public void onItemClicked(RecyclerView recyclerView, int position, View v) {
+                //Debug purposes
                 infoTextView.setText(pastArray[position]);
+                //Send data to next class. Not the second putextra has a serializable as a second
+                //argument, so you must call "getIntent().getSerializableExtra" in the next activity.
+                pastACT.putExtra("name", pastArray[position]);
+                pastACT.putExtra("data", findACTMapping(hashMap, pastArray[position]));
+
                 startActivity(pastACT);
             }
         });
@@ -209,8 +188,28 @@ public class homeScreenActivity extends AppCompatActivity {
             @Override
             public void onItemClicked(RecyclerView recyclerView, int position, View v) {
                 infoTextView.setText(upcomingArray[position]);
+
+                //currACT.putExtra("name", upcomingArray[position]);
+                //currACT.putExtra("data", findACTBundle(hashMap, upcomingArray[position]));
+
                 startActivity(currACT);
             }
         });
+    }
+
+    //Finds the data corresponding to a specific ACT, in the form of
+    // another hash map. Returns hash map of the information,
+    //with the keys being the fields in Firebase.
+    private HashMap<String, Object> findACTMapping(Map<String, Map<String,Object>> hashMap, String ACT_Name){
+        for (Map.Entry<String, Map<String, Object>> ACT : hashMap.entrySet()) {
+
+            if(ACT.getKey().toString().equals(ACT_Name)){
+                Map<String, Object> innerMap = ACT.getValue();
+                return (HashMap<String, Object>) innerMap;
+            }
+
+        }
+        Log.w("Finding ACT", "Could not find specified ACT");
+        return null;
     }
 }

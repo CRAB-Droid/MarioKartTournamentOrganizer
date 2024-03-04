@@ -15,6 +15,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -22,6 +24,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 
 public class ViewACTActivity extends AppCompatActivity {
@@ -32,13 +35,10 @@ public class ViewACTActivity extends AppCompatActivity {
     private TextView resultTextView;
     private Button addToCalendar;
     private Button joinOrResults;
-    private boolean admin = false; // HARDCODED, just for testing. Fetch based on auth from firebase
-    private boolean complete = false; // HARDCODED, just for testing. Fetch based on ACT ID from firebase
-    private int ACTID = 7; // HARDCODED. Get from intent that launches page
-    // hardcoded the below to 7 as well
-    FirebaseFirestore db;
-    private DocumentReference docRef;
-//    private DocumentSnapshot actDocSnap;
+    private boolean userIsAdmin;
+    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private DocumentReference docRef = db.collection("act_objects").document("act5"); // hardcoded for now
     private Map<String, Object> data;
 
     @Override
@@ -54,9 +54,6 @@ public class ViewACTActivity extends AppCompatActivity {
         addToCalendar = (Button) findViewById(R.id.addToCalendarButton);
         joinOrResults = (Button) findViewById(R.id.joinOrResultsButton);
 
-        db = FirebaseFirestore.getInstance();
-        // hard code 7 for now
-        docRef = db.collection("act_objects").document("7");
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -83,19 +80,18 @@ public class ViewACTActivity extends AppCompatActivity {
         }
 
         String playerString = "";
-        ArrayList players = (ArrayList) data.get("Players");
-        for (int i=0; i<8; i++) {
+        ArrayList players = (ArrayList) data.get("players");
+        for (int i=0; i<players.size(); i++) {
             System.out.println(players.get(i));
             playerString = playerString + (i+1) + ". " + players.get(i) + "\n";
         }
         whoTextView.setText(playerString);
 
-        whenTextView.setText(data.get("Date/Time").toString());
+        whenTextView.setText(data.get("time").toString() + " " + data.get("date").toString());
         whereTextView.setText(data.get("location").toString());
 
-
         // check if ACT is complete or not based on boolean field in firebase
-        if (complete) {
+        if ((boolean) data.get("completed")) {
             addToCalendar.setVisibility(View.GONE); // GONE = invisible and disabled
             joinOrResults.setVisibility(View.GONE);
             return;
@@ -108,15 +104,18 @@ public class ViewACTActivity extends AppCompatActivity {
 
         addToCalendar.setOnClickListener(v -> addToCalendar());
 
-        // check to see if the user is an admin for this ACT (if they created if or not)
-        // for now, admin is hardcoded when assigned, for testing
-        if (admin)
+
+        System.out.println(user.getEmail());
+        System.out.println(data.get("adminID"));
+        userIsAdmin = Objects.equals(user.getEmail(), (String) data.get("adminID"));
+
+        if (userIsAdmin)
             joinOrResults.setText("Enter Results");
         else // normal user perms, didn't create this particular ACT
             joinOrResults.setText("Join this ACT");
 
         joinOrResults.setOnClickListener(v -> {
-            if (admin) {
+            if (userIsAdmin) {
                 enterResults();
             } else {
                 joinACT();

@@ -15,6 +15,9 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.Timestamp;
+import com.google.firebase.firestore.AggregateQuery;
+import com.google.firebase.firestore.AggregateQuerySnapshot;
+import com.google.firebase.firestore.AggregateSource;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -33,6 +36,8 @@ public class CreateACTActivity extends AppCompatActivity {
     private String timeStr;
     private EditText location;
     private String locationStr;
+    private long count;
+    private String docPath;
 
     //for firebase
     public static final String ID_FIELD = "ID";
@@ -71,12 +76,29 @@ public class CreateACTActivity extends AppCompatActivity {
 //                    .limit(1)
 //                    .get();
 
+            Query query = myFireStore.collection("act_objects");
+            AggregateQuery countQuery = query.count();
+            countQuery.get(AggregateSource.SERVER).addOnCompleteListener(new OnCompleteListener<AggregateQuerySnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<AggregateQuerySnapshot> task) {
+                    if (task.isSuccessful()) {
+                        // Count fetched successfully
+                        AggregateQuerySnapshot snapshot = task.getResult();
+                        count = snapshot.getCount();
+                        //docPath = "" + count;
+                        Log.d(TAG, "Count: " + count);
+                    } else {
+                        Log.d(TAG, "Count failed: ", task.getException());
+                    }
+                }
+            });
+
             if(!dateStr.isEmpty() && !timeStr.isEmpty() && !locationStr.isEmpty()) {
                 //TODO Setup button to store input activity into database
 
                 //creating a new document in firebase
                 Map<String, Object> act1 = new HashMap<>();
-                act1.put(ID_FIELD, "1");
+                act1.put(ID_FIELD, 1);
                 act1.put(ADMIN_FIELD, 3);
                 act1.put(TIMESTAMP_FIELD, Timestamp.now());
                 act1.put(COMPLETED_FIELD, false); //default
@@ -121,5 +143,22 @@ public class CreateACTActivity extends AppCompatActivity {
 //                .limit(1)
 //                .get();
 //
+//    }
+
+//    public void getCount(){
+//        Query query = myFireStore.collection("act_objects");
+//        AggregateQuery countQuery = query.count();
+//        countQuery.get(AggregateSource.SERVER).addOnCompleteListener(new OnCompleteListener<AggregateQuerySnapshot>() {
+//            @Override
+//            public void onComplete(@NonNull Task<AggregateQuerySnapshot> task) {
+//                if (task.isSuccessful()) {
+//                    // Count fetched successfully
+//                    AggregateQuerySnapshot snapshot = task.getResult();
+//                    Log.d(TAG, "Count: " + snapshot.getCount());
+//                } else {
+//                    Log.d(TAG, "Count failed: ", task.getException());
+//                }
+//            }
+//        });
 //    }
 }

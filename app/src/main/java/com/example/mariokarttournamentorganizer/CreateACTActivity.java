@@ -17,7 +17,9 @@ public class CreateACTActivity extends AppCompatActivity {
     private EditText location;
     private String locationStr;
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void
+
+    onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.createact);
 

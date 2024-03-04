@@ -27,6 +27,7 @@ import com.google.firebase.firestore.EventListener;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -62,12 +63,10 @@ public class CreateACTActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.createact);
 
+        //getting the username from the homescreen, to use for the adminID and the players list
         Intent loginInfoIntent = getIntent();
         String usernameStr = loginInfoIntent.getStringExtra("Username");
-
-        //getting the username from the homescreen
         Log.d(TAG, "username: " + usernameStr);
-        String[] playersArray = {usernameStr};
 
         //Setup input fields
         date = (EditText) findViewById(R.id.editTextDate);
@@ -93,8 +92,6 @@ public class CreateACTActivity extends AppCompatActivity {
             }
         });
 
-        //adds admin/creator's account into the player's array
-
 
         //Set up create button
         createButton = (Button) findViewById(R.id.createButton);
@@ -110,13 +107,13 @@ public class CreateACTActivity extends AppCompatActivity {
                     //creating a new document in firebase
                     Map<String, Object> act1 = new HashMap<>();
                     act1.put(ID_FIELD, count);
-                    act1.put(ADMIN_FIELD, 123);
+                    act1.put(ADMIN_FIELD, usernameStr);
                     act1.put(TIMESTAMP_FIELD, Timestamp.now());
                     act1.put(COMPLETED_FIELD, false); //default
                     act1.put(DATE_FIELD, dateStr);
                     act1.put(TIME_FIELD, timeStr);
                     act1.put(LOCATION_FIELD, locationStr);
-                    act1.put(PLAYERS_FIELD,null);
+                    act1.put(PLAYERS_FIELD, Arrays.asList(usernameStr));
                     act1.put(RESULT_FIELD, null);
 
                     myFireStore.collection("act_objects").document(docPath)

@@ -36,14 +36,11 @@
             android:name=".CreateACTActivity"
             android:parentActivityName=".homeScreenActivity"/>
         <activity
-            android:name=".UserACTActivity"
-            android:parentActivityName=".homeScreenActivity"/>
-        <activity
-            android:name=".adminActViewActivity"
+            android:name=".ViewACTActivity"
             android:parentActivityName=".homeScreenActivity"/>
         <activity
             android:name=".EnterResultsActivity"
-            android:parentActivityName=".adminActViewActivity"/>
+            android:parentActivityName=".ViewACTActivity"/>
         <activity
             android:name=".CameraActivity"
             android:parentActivityName=".EnterResultsActivity"/>

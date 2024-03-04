@@ -8,24 +8,24 @@
     tools:context=".ViewACTActivity">
 
     <TextView
-        android:id="@+id/whenTextViewHeader"
+        android:id="@+id/whoTextViewHeader"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Date and Time:"
+        android:text="Participants:"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/whereTextViewInfo" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/whenTextViewInfo"
+        android:id="@+id/whoTextViewInfo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TextView"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/whenTextViewHeader" />
+        app:layout_constraintTop_toBottomOf="@+id/whoTextViewHeader" />
 
     <TextView
         android:id="@+id/whereTextViewHeader"
@@ -48,24 +48,46 @@
         app:layout_constraintTop_toBottomOf="@+id/whereTextViewHeader" />
 
     <TextView
-        android:id="@+id/whoTextViewHeader"
+        android:id="@+id/whenTextViewHeader"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Participants:"
+        android:text="Date and Time:"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/whereTextViewInfo" />
 
     <TextView
-        android:id="@+id/whoTextViewInfo"
+        android:id="@+id/whenTextViewInfo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TextView"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/whoTextViewHeader" />
+        app:layout_constraintTop_toBottomOf="@+id/whenTextViewHeader" />
+
+<!--These two text views will only be visible if it's a past ACT-->
+    <TextView
+        android:id="@+id/resultTextViewHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Results:"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/whenTextViewInfo" />
+
+    <TextView
+        android:id="@+id/resultTextViewInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/resultTextViewHeader" />
+<!---->
 
     <Button
         android:id="@+id/addToCalendarButton"
@@ -88,6 +110,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>
+<!---->
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

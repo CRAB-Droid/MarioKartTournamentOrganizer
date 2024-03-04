@@ -13,9 +13,12 @@ public class ViewACTActivity extends AppCompatActivity {
     private TextView whoTextView;
     private TextView whenTextView;
     private TextView whereTextView;
+    private TextView resultTextViewHeader;
+    private TextView resultTextView;
     private Button addToCalendar;
     private Button joinOrResults;
     private boolean admin = false; // HARDCODED, just for testing. Fetch based on auth from firebase
+    private boolean complete = false; // HARDCODED, just for testing. Fetch based on auth from firebase
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,8 +28,19 @@ public class ViewACTActivity extends AppCompatActivity {
         whoTextView = (TextView) findViewById(R.id.whoTextViewInfo);
         whenTextView = (TextView) findViewById(R.id.whenTextViewInfo);
         whereTextView = (TextView) findViewById(R.id.whereTextViewInfo);
+        resultTextViewHeader = (TextView) findViewById(R.id.resultTextViewHeader);
+        resultTextView = (TextView) findViewById(R.id.resultTextViewInfo);
         addToCalendar = (Button) findViewById(R.id.addToCalendarButton);
         joinOrResults = (Button) findViewById(R.id.joinOrResultsButton);
+
+        // check if ACT is complete or not based on boolean field in firebase
+
+        if (complete) {
+            addToCalendar.setVisibility(View.GONE); // GONE = invisible and disabled
+            joinOrResults.setVisibility(View.GONE);
+            return;
+        }
+        // ACT is still upcoming:
 
         addToCalendar.setOnClickListener(v-> addToCalendar());
 

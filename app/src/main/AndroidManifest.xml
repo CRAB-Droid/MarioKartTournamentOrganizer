@@ -27,9 +27,6 @@
             android:name=".FirebaseDemoActivity"
             android:parentActivityName=".homeScreenActivity"/>
         <activity
-            android:name=".MainActivity"
-            android:parentActivityName=".LoginActivity"/>
-        <activity
             android:name=".SignupActivity"
             android:parentActivityName=".LoginActivity"/>
         <activity

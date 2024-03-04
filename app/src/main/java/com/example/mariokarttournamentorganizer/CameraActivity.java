@@ -54,7 +54,7 @@ public class CameraActivity extends AppCompatActivity {
                     // Photo taken and saved, time to post!
                     postToInstagram();
                 } else {
-                    Log.e("MainActivity", "Activity Result NOT OK");
+                    Log.e("ActivityResultLauncher", "Activity Result NOT OK");
                 }
             });
 
@@ -77,7 +77,7 @@ public class CameraActivity extends AppCompatActivity {
         try {
             startActivity(Intent.createChooser(share, "Share to"));
         } catch (ActivityNotFoundException e) {
-            Log.e("MainActivity", "ActivityNotFoundException");
+            Log.e("postToInstagram", "ActivityNotFoundException");
         }
     }
 }

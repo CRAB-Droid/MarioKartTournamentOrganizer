@@ -13,6 +13,8 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
@@ -34,7 +36,7 @@ public class EnterResultsActivity extends AppCompatActivity {
     public static final String RESULT_FIELD = "result";
     public static final String TAG = "creatingACT";
 
-    private FirebaseFirestore mDocRef = FirebaseFirestore.getInstance();
+    private FirebaseFirestore myFireStore = FirebaseFirestore.getInstance();
 
 
     @Override
@@ -50,29 +52,13 @@ public class EnterResultsActivity extends AppCompatActivity {
         {
             resultsStr = results.getText().toString();
             if (!resultsStr.isEmpty()) {
-                //TODO
-                //still need to actually get the right act  to edit
-
-                Map<String, Object> newInfo = new HashMap<>();
-                newInfo.put(COMPLETED_FIELD, true);
-                newInfo.put(RESULT_FIELD, resultsStr);
-
-
-
-                mDocRef.collection("act_objects").document("act1")
-                        .update(newInfo)
-                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void aVoid) {
-                                Log.d(TAG, "DocumentSnapshot successfully written!");
-                            }
-                        })
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Log.w(TAG, "Error writing document", e);
-                            }
-                        });
+                //updating results and completed fielf of chosen act
+                //currently the act to be edited is hardcoded
+                DocumentReference actToBeUpdated = myFireStore.collection("act_objects").document("act5");
+                actToBeUpdated.update(RESULT_FIELD, resultsStr);
+                actToBeUpdated.update(COMPLETED_FIELD, true);
+                Toast.makeText(EnterResultsActivity.this,
+                        "Result successfully entered.", Toast.LENGTH_SHORT).show();
             } else {
                 Toast.makeText(EnterResultsActivity.this,
                         "Please fill out necessary field.", Toast.LENGTH_SHORT).show();

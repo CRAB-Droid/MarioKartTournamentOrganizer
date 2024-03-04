@@ -7,6 +7,11 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FieldValue;
+import com.google.firebase.firestore.FirebaseFirestore;
+
 public class adminActViewActivity extends AppCompatActivity {
 
     //Text that shows who is attending the event.
@@ -17,6 +22,7 @@ public class adminActViewActivity extends AppCompatActivity {
     TextView whereTextView;
     //Button that will change to screen where results are inputted.
     Button enterResultsButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,7 +35,8 @@ public class adminActViewActivity extends AppCompatActivity {
 
         enterResultsButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) { switchToStateXXX();
+            public void onClick(View view) {
+                switchToStateXXX();
             }
         });
 

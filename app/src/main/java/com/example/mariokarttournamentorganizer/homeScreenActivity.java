@@ -43,8 +43,8 @@ public class homeScreenActivity extends AppCompatActivity {
     RecyclerView pastRecyclerView;
     Button createACTButton;
     TextView infoTextView;
-    String [] upcomingArray = new String[10];
-    public String [] pastArray = new String[10];
+    String [] upcomingArray;
+    public String [] pastArray;
 
     public static final String ACTNAME_KEY = "name";
     public static final String DATE_KEY = "Date/Time";
@@ -130,11 +130,35 @@ public class homeScreenActivity extends AppCompatActivity {
         //         ACT_Info ==            {                            }
         //                      < ACT Name < Field , Value in field > >
 
+        // quick and dirty solution to dynamically allocate homepage arrays
+        int pastCount = 0;
+        int upcomingCount = 0;
 
         if (hashMap.isEmpty() || hashMap == null) { // Double check that we can call .entrySet() without error
             Log.e(TAG, "Outer hashmap is null");
-//            finish();
         }
+        for (Map.Entry<String, Map<String, Object>> ACT : hashMap.entrySet()) {
+            //Log.i("TRACKER", "Key: " + ACT.getKey() +". Value: " + ACT.getValue());
+            Map<String, Object> innerMap = ACT.getValue();
+
+            if (innerMap.isEmpty() || innerMap == null) { // Double check that we can call .entrySet() without error
+                Log.e(TAG, "Inner hashmap is null");
+            }
+            for (Map.Entry<String, Object> ACT_Info : innerMap.entrySet()) {
+                if(ACT_Info.getKey().equals("completed") && ACT_Info.getValue() instanceof Boolean) {
+                    boolean completed = (boolean) ACT_Info.getValue();
+                    if(completed){
+                        pastCount++;
+                    } else {
+                        upcomingCount++;
+                    }
+                }
+            }
+        }
+
+        upcomingArray = new String[upcomingCount];
+        pastArray = new String[pastCount];
+
         for (Map.Entry<String, Map<String, Object>> ACT : hashMap.entrySet()) {
             //Log.i("TRACKER", "Key: " + ACT.getKey() +". Value: " + ACT.getValue());
             Map<String, Object> innerMap = ACT.getValue();

@@ -38,9 +38,6 @@
         <activity
             android:name=".ViewACTActivity"
             android:parentActivityName=".homeScreenActivity"/>
-<!--        delete admin ACT view activity once AJ's stuff fully integrated-->
-        <activity android:name=".adminActViewActivity"
-            android:parentActivityName=".homeScreenActivity"/>
         <activity
             android:name=".EnterResultsActivity"
             android:parentActivityName=".ViewACTActivity"/>

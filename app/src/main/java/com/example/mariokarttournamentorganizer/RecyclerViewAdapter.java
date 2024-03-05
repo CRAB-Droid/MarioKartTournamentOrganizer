@@ -47,6 +47,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
      * by RecyclerView
      */
     public RecyclerViewAdapter(String[] dataSet) {
+
         localDataSet = dataSet;
     }
 

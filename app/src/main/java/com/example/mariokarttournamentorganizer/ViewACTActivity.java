@@ -20,6 +20,7 @@ import java.util.Objects;
 
 
 public class ViewACTActivity extends AppCompatActivity {
+    private TextView actTitleTextView;
     private TextView whoTextView;
     private TextView whenTextView;
     private TextView whereTextView;
@@ -33,6 +34,7 @@ public class ViewACTActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_act);
 
+        actTitleTextView = (TextView) findViewById(R.id.actTitleTextViewInfo);
         whoTextView = (TextView) findViewById(R.id.whoTextViewInfo);
         whenTextView = (TextView) findViewById(R.id.whenTextViewInfo);
         whereTextView = (TextView) findViewById(R.id.whereTextViewInfo);
@@ -49,13 +51,15 @@ public class ViewACTActivity extends AppCompatActivity {
         }
 
         // Set TextViews with correct data
+        actTitleTextView.setText(actTitle);
+
         String playerString = "";
         ArrayList players = (ArrayList) data.get("players");
         for (int i=0; i<players.size(); i++) {
-            System.out.println(players.get(i));
             playerString = playerString + (i+1) + ". " + players.get(i) + "\n";
         }
         whoTextView.setText(playerString);
+
         whenTextView.setText(data.get("time").toString() + " " + data.get("date").toString());
         whereTextView.setText(data.get("location").toString());
 
@@ -73,8 +77,6 @@ public class ViewACTActivity extends AppCompatActivity {
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         boolean userIsAdmin = Objects.equals(user.getEmail(), (String) data.get("adminID"));
-        System.out.println(user.getEmail()); // delete
-        System.out.println(data.get("adminID")); // delete
 
         if (userIsAdmin)
             joinOrResults.setText("Enter Results");

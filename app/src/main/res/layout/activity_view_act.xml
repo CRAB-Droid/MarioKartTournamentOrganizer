@@ -8,14 +8,27 @@
     tools:context=".ViewACTActivity">
 
     <TextView
+        android:id="@+id/actTitleTextViewInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ACT Title"
+        android:textColor="@color/blue"
+        android:textSize="40sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
         android:id="@+id/whoTextViewHeader"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Participants:"
+        android:text="Participants"
+        android:textColor="@color/red"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/actTitleTextViewInfo" />
 
     <TextView
         android:id="@+id/whoTextViewInfo"
@@ -31,7 +44,8 @@
         android:id="@+id/whereTextViewHeader"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Location:"
+        android:text="Location"
+        android:textColor="@color/red"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
@@ -51,7 +65,8 @@
         android:id="@+id/whenTextViewHeader"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Date and Time:"
+        android:text="Date and Time"
+        android:textColor="@color/red"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
@@ -72,7 +87,8 @@
         android:id="@+id/resultTextViewHeader"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Results:"
+        android:text="Results"
+        android:textColor="@color/red"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
@@ -106,6 +122,7 @@
         android:layout_width="244dp"
         android:layout_height="76dp"
         android:backgroundTint="@color/red"
+        android:text=" "
         android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

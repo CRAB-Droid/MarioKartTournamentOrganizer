@@ -118,7 +118,10 @@ public class ViewACTActivity extends AppCompatActivity {
         //Change names to actual activities
         //Intent addCalendar = new Intent(this, Calendar.class);
         //startActivity(addCalendar);
-        Log.v("Add Calendar", "Button Clicked");
+        Log.v("Addaj Calendar", "Button Clicked");
+        Intent toCalendar = new Intent(this, CalendarConnectionActivity.class);
+        //toCalendar.putExtra(data.get("location").toString());
+        startActivity(toCalendar);
     }
 
     private void enterResults(String actTitle) {

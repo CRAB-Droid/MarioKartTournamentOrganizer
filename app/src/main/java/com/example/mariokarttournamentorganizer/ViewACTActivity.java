@@ -9,21 +9,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.HashMap;
 import java.util.Objects;
 
 
@@ -35,11 +27,6 @@ public class ViewACTActivity extends AppCompatActivity {
     private TextView resultTextView;
     private Button addToCalendar;
     private Button joinOrResults;
-    private boolean userIsAdmin;
-    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-    FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private DocumentReference docRef = db.collection("act_objects").document("act5"); // hardcoded for now
-    private Map<String, Object> data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,31 +41,14 @@ public class ViewACTActivity extends AppCompatActivity {
         addToCalendar = (Button) findViewById(R.id.addToCalendarButton);
         joinOrResults = (Button) findViewById(R.id.joinOrResultsButton);
 
-        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
-                    DocumentSnapshot document = task.getResult();
-                    if (document.exists()) {
-                        data = document.getData();
-                        Log.d(TAG, "DocumentSnapshot data: " + data);
-                        processData();
-                    } else {
-                        Log.d(TAG, "No such document");
-                    }
-                } else {
-                    Log.d(TAG, "get failed with ", task.getException());
-                }
-            }
-        });
-    }
-
-    private void processData() {
+        String actTitle = getIntent().getStringExtra("name"); // get name of ACT collection
+        HashMap<String, Object> data = (HashMap<String, Object>)getIntent().getSerializableExtra("data"); // get data from ACT collection
         if (data == null) {
             Log.e(TAG, "invalid ACT id");
             finish();
         }
 
+        // Set TextViews with correct data
         String playerString = "";
         ArrayList players = (ArrayList) data.get("players");
         for (int i=0; i<players.size(); i++) {
@@ -86,7 +56,6 @@ public class ViewACTActivity extends AppCompatActivity {
             playerString = playerString + (i+1) + ". " + players.get(i) + "\n";
         }
         whoTextView.setText(playerString);
-
         whenTextView.setText(data.get("time").toString() + " " + data.get("date").toString());
         whereTextView.setText(data.get("location").toString());
 
@@ -96,18 +65,16 @@ public class ViewACTActivity extends AppCompatActivity {
             joinOrResults.setVisibility(View.GONE);
             return;
         }
-
-        // ACT is still upcoming:
-
+        // else, ACT is still upcoming:
         resultTextViewHeader.setVisibility(View.GONE);
         resultTextView.setVisibility(View.GONE);
 
         addToCalendar.setOnClickListener(v -> addToCalendar());
 
-
-        System.out.println(user.getEmail());
-        System.out.println(data.get("adminID"));
-        userIsAdmin = Objects.equals(user.getEmail(), (String) data.get("adminID"));
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        boolean userIsAdmin = Objects.equals(user.getEmail(), (String) data.get("adminID"));
+        System.out.println(user.getEmail()); // delete
+        System.out.println(data.get("adminID")); // delete
 
         if (userIsAdmin)
             joinOrResults.setText("Enter Results");

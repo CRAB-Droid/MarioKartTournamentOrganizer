@@ -168,8 +168,10 @@ public class homeScreenActivity extends AppCompatActivity {
             }
         }
         //Declare Intents
-        Intent pastACT = new Intent(this, adminActViewActivity.class);
-        Intent currACT = new Intent(this, adminActViewActivity.class);
+//        Intent pastACT = new Intent(this, adminActViewActivity.class);
+//        Intent currACT = new Intent(this, adminActViewActivity.class);
+        Intent viewACT = new Intent(this, ViewACTActivity.class);
+
         //Initialize recycleViews
         RecyclerViewAdapter pastCustomAdapter = new RecyclerViewAdapter(pastArray);
         RecyclerViewAdapter upcomingCustomAdapter = new RecyclerViewAdapter(upcomingArray);
@@ -188,10 +190,10 @@ public class homeScreenActivity extends AppCompatActivity {
                 infoTextView.setText(pastArray[position]);
                 //Send data to next class. Not the second putextra has a serializable as a second
                 //argument, so you must call "getIntent().getSerializableExtra" in the next activity.
-                pastACT.putExtra("name", pastArray[position]);
-                pastACT.putExtra("data", findACTMapping(hashMap, pastArray[position]));
+                viewACT.putExtra("name", pastArray[position]);
+                viewACT.putExtra("data", findACTMapping(hashMap, pastArray[position]));
 
-                startActivity(pastACT);
+                startActivity(viewACT);
             }
         });
 
@@ -201,10 +203,10 @@ public class homeScreenActivity extends AppCompatActivity {
             public void onItemClicked(RecyclerView recyclerView, int position, View v) {
                 infoTextView.setText(upcomingArray[position]);
 
-                currACT.putExtra("name", upcomingArray[position]);
-                currACT.putExtra("data", findACTMapping(hashMap, upcomingArray[position]));
+                viewACT.putExtra("name", upcomingArray[position]);
+                viewACT.putExtra("data", findACTMapping(hashMap, upcomingArray[position]));
 
-                startActivity(currACT);
+                startActivity(viewACT);
             }
         });
     }

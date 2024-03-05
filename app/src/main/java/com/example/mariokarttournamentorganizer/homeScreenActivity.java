@@ -21,6 +21,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -49,6 +51,8 @@ public class homeScreenActivity extends AppCompatActivity {
     //private CollectionReference colllectionRef = FirebaseFirestore.getInstance().collection("act_objects");
     private CollectionReference collection = FirebaseFirestore.getInstance().collection("act_objects");
     //private CollectionReference collectionRef = dataBase.collection("act_objects");
+    private static final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+    private static final String username = user.getEmail();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +69,7 @@ public class homeScreenActivity extends AppCompatActivity {
         createACTButton.setOnClickListener(v->
         {
             Intent CreateACT = new Intent(this, CreateACTActivity.class);
+            CreateACT.putExtra("Username", username);
             startActivity(CreateACT);
         });
     }

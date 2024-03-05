@@ -79,6 +79,12 @@ public class ViewACTActivity extends AppCompatActivity {
 
         whenTextView.setText(data.get("time").toString() + " " + data.get("date").toString());
         whereTextView.setText(data.get("location").toString());
+        String result = data.get("result").toString();
+        if (result != null)
+            resultTextView.setText(result);
+        else
+            resultTextView.setText(result);
+
 
         // check if ACT is complete or not based on boolean field in firebase
         if ((boolean) data.get("completed")) {

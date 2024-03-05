@@ -110,7 +110,7 @@ public class SignupActivity extends AppCompatActivity {
     //Helper function to check if password is strong
     public static boolean isStrongPassword(String password) {
             // Define a regular expression to match uppercase, lowercase, digit, and special character
-            String regex = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@#$%^&+=!])(?=.*[a-zA-Z0-9@#$%^&+=!]).{8,}$";
+            String regex = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@#$%^&+=!*])(?=.*[a-zA-Z0-9@#$%^&+=!*]).{8,}$";
 
             // Create a Pattern object
             Pattern pattern = Pattern.compile(regex);

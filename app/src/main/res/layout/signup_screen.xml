@@ -23,7 +23,7 @@
         android:layout_width="365dp"
         android:layout_height="64dp"
         android:ems="10"
-        android:hint="UserName"
+        android:hint="Email"
         android:inputType="text"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -59,10 +59,10 @@
 
     <Button
         android:id="@+id/loginbuttonNEW"
-        android:layout_width="136dp"
-        android:layout_height="64dp"
+        android:layout_width="177dp"
+        android:layout_height="60dp"
         android:backgroundTint="@color/red"
-        android:text="Log in"
+        android:text="Sign Up"
         android:textSize="28dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

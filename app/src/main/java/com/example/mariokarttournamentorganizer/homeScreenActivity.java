@@ -133,7 +133,7 @@ public class homeScreenActivity extends AppCompatActivity {
 
         if (hashMap.isEmpty() || hashMap == null) { // Double check that we can call .entrySet() without error
             Log.e(TAG, "Outer hashmap is null");
-            finish();
+//            finish();
         }
         for (Map.Entry<String, Map<String, Object>> ACT : hashMap.entrySet()) {
             //Log.i("TRACKER", "Key: " + ACT.getKey() +". Value: " + ACT.getValue());
@@ -141,7 +141,7 @@ public class homeScreenActivity extends AppCompatActivity {
 
             if (innerMap.isEmpty() || innerMap == null) { // Double check that we can call .entrySet() without error
                 Log.e(TAG, "Inner hashmap is null");
-                finish();
+//                finish();
             }
             for (Map.Entry<String, Object> ACT_Info : innerMap.entrySet()) {
                 //Log.i("TRACKER", "Key: " + ACT_Info.getKey() +". Value: " + ACT_Info.getValue());

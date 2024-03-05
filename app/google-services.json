@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "648922679068",
+    "project_id": "mariokarttournamentorganizer",
+    "storage_bucket": "mariokarttournamentorganizer.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:648922679068:android:3fbcf0b638b9d39d581cd9",
+        "android_client_info": {
+          "package_name": "com.example.mariokarttournamentorganizer"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB_DJBvDo5R77hee4JUgsm6RbPllrTaaco"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -63,7 +63,6 @@ public class CalendarConnectionActivity extends AppCompatActivity{
                     toCalendar.putExtra(CalendarContract.Events.TITLE, title.getText().toString());
                     toCalendar.putExtra(CalendarContract.Events.DESCRIPTION, description.getText().toString());
                     toCalendar.putExtra(CalendarContract.Events.EVENT_LOCATION, location.getText().toString());
-                    toCalendar.putExtra(CalendarContract.Events.ALL_DAY, true);
 
                     String resultString = TextUtils.join(", ", emailStorageList);
 

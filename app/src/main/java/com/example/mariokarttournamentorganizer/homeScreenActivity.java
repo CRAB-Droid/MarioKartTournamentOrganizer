@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -72,7 +73,16 @@ public class homeScreenActivity extends AppCompatActivity {
             CreateACT.putExtra("Username", username);
             startActivity(CreateACT);
         });
+
+        OnBackPressedCallback callback = new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                Log.i("Back Button", "Can't go back to login or signup page");
+            }
+        };
+        getOnBackPressedDispatcher().addCallback(this, callback);
     }
+
 
     public void firebaseDemo(View v) { // Delete when the demo is gone
         Intent startDemo = new Intent(this, FirebaseDemoActivity.class);

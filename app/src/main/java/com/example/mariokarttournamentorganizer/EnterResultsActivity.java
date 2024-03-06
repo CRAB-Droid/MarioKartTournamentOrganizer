@@ -72,8 +72,9 @@ public class EnterResultsActivity extends AppCompatActivity {
                             "Result successfully entered.", Toast.LENGTH_SHORT).show();
 
                     //Go back to homescreen after entering result
-                    Intent homescreen = new Intent(this, homeScreenActivity.class);
-                    startActivity(homescreen);
+//                    Intent homescreen = new Intent(this, homeScreenActivity.class);
+//                    startActivity(homescreen);
+                    finish();
                 } else {
                     Toast.makeText(EnterResultsActivity.this,
                             "Please fill out necessary field.", Toast.LENGTH_SHORT).show();

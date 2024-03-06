@@ -131,11 +131,7 @@ public class ViewACTActivity extends AppCompatActivity {
         resultTextViewHeader.setVisibility(View.GONE);
         resultTextView.setVisibility(View.GONE);
 
-
-
         addToCalendar.setOnClickListener(v -> addToCalendar(data, actTitle));
-
-
 
         boolean userIsAdmin = Objects.equals(username, (String) data.get("adminID"));
         if (userIsAdmin)
@@ -175,22 +171,5 @@ public class ViewACTActivity extends AppCompatActivity {
         Log.d(TAG, "user: " + username);
         actDocument.update(PLAYERS_FIELD, FieldValue.arrayUnion(username));
 
-//        // fetch data so it updates users on screen when you sign up
-//        actDocument.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-//            @Override
-//            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-//                if (task.isSuccessful()) {
-//                    DocumentSnapshot document = task.getResult();
-//                    if (document.exists()) {
-//                        Log.d(TAG, "DocumentSnapshot data");
-//                        processData(document.getData());
-//                    } else {
-//                        Log.d(TAG, "No such document");
-//                    }
-//                } else {
-//                    Log.d(TAG, "get failed with ", task.getException());
-//                }
-//            }
-//        });
     }
 }

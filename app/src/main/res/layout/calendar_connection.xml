@@ -9,11 +9,12 @@
 
     <EditText
         android:id="@+id/descEditText"
-        android:layout_width="265dp"
-        android:layout_height="80dp"
+        android:layout_width="267dp"
+        android:layout_height="106dp"
         android:ems="10"
         android:hint="Description"
         android:inputType="text"
+        android:textSize="14sp"
         android:tooltipText="Description"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -30,7 +31,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.898"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        android:backgroundTint="@color/blue"/>
 
     <EditText
         android:id="@+id/locationEditText"
@@ -44,7 +46,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.31" />
+        app:layout_constraintVertical_bias="0.333" />
 
     <EditText
         android:id="@+id/titleEditText"
@@ -125,7 +127,8 @@
         app:layout_constraintHorizontal_bias="0.946"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.521" />
+        app:layout_constraintVertical_bias="0.521"
+        android:backgroundTint="@color/blue"/>
 
     <!--    <Spinner-->
 <!--        android:id="@+id/firstTimeSpinner"-->

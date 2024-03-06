@@ -96,7 +96,11 @@ public class ViewACTActivity extends AppCompatActivity {
         resultTextViewHeader.setVisibility(View.GONE);
         resultTextView.setVisibility(View.GONE);
 
-        addToCalendar.setOnClickListener(v -> addToCalendar());
+
+
+        addToCalendar.setOnClickListener(v -> addToCalendar(data, actTitle));
+
+
 
         boolean userIsAdmin = Objects.equals(username, (String) data.get("adminID"));
         if (userIsAdmin)
@@ -113,14 +117,15 @@ public class ViewACTActivity extends AppCompatActivity {
         });
     }
 
-    private void addToCalendar() {
+    private void addToCalendar(Map<String, Object> data, String actName) {
         //TODO
         //Change names to actual activities
         //Intent addCalendar = new Intent(this, Calendar.class);
         //startActivity(addCalendar);
         Log.v("Addaj Calendar", "Button Clicked");
         Intent toCalendar = new Intent(this, CalendarConnectionActivity.class);
-        //toCalendar.putExtra(data.get("location").toString());
+        toCalendar.putExtra("data", (HashMap<String, Object>) data);
+        toCalendar.putExtra("name", actName);
         startActivity(toCalendar);
     }
 

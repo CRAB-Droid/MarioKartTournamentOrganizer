@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class CalendarConnectionActivity extends AppCompatActivity{
     EditText title;
@@ -24,6 +25,8 @@ public class CalendarConnectionActivity extends AppCompatActivity{
     int count;
     Button addEmail;
     Button addEvent;
+    HashMap<String, Object> hash;
+    String ACTName;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,8 +41,14 @@ public class CalendarConnectionActivity extends AppCompatActivity{
         count = 0;
         emailStorageList = new ArrayList<String>();
 
+        hash = (HashMap<String, Object>) getIntent().getSerializableExtra("data");
+        ACTName = getIntent().getStringExtra("name");
+
         addEvent = findViewById(R.id.addEventButton);
 
+        description.setText("Mario Kart ACT, hosted by " + hash.get("adminID") + ".");
+        location.setText(hash.get("location").toString());
+        title.setText(ACTName);
         addEvent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

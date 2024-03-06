@@ -74,16 +74,16 @@
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="186dp"
-        android:layout_height="29dp"
-        android:text="Upcoming Tournaments:"
+        android:layout_width="253dp"
+        android:layout_height="32dp"
+        android:text="Upcoming/Current Tournaments:"
         android:textSize="16dp"
         app:layout_constraintBottom_toTopOf="@+id/upcomingRecyclerView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.111"
+        app:layout_constraintHorizontal_bias="0.202"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.763" />
+        app:layout_constraintVertical_bias="0.794" />
 
     <TextView
         android:id="@+id/textView2"
@@ -93,7 +93,7 @@
         android:textSize="16dp"
         app:layout_constraintBottom_toTopOf="@+id/pastRecyclerView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.119"
+        app:layout_constraintHorizontal_bias="0.141"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.976" />

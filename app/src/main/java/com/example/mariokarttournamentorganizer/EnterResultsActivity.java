@@ -1,6 +1,10 @@
 package com.example.mariokarttournamentorganizer;
 
+import static android.content.Intent.ACTION_SEND;
+
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.net.Uri;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,6 +21,7 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.net.URI;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -30,11 +35,13 @@ public class EnterResultsActivity extends AppCompatActivity {
     private Button photo;
 
     private String resultsStr;
+    private Uri imageUri;
 
     //for firebase
     public static final String COMPLETED_FIELD= "completed";
     public static final String RESULT_FIELD = "result";
     public static final String TAG = "creatingACT";
+
 
     private FirebaseFirestore myFireStore = FirebaseFirestore.getInstance();
 
@@ -46,6 +53,15 @@ public class EnterResultsActivity extends AppCompatActivity {
 
         //get ACT title from intent
         String actTitle = getIntent().getStringExtra("actTitle");
+
+        boolean fromPhoto = getIntent().getBooleanExtra("fromPhoto", false);
+        Log.d(TAG, "from photo?" + fromPhoto);
+
+        if (fromPhoto == true){
+            Log.d(TAG, "from photo?" + "made it to if statement");
+            imageUri = getIntent().getData();
+            postToInstagram();
+        }
 
         results = (EditText) findViewById(R.id.resultsInputEditTextNumber);
 
@@ -75,6 +91,20 @@ public class EnterResultsActivity extends AppCompatActivity {
             Intent camera = new Intent(this, CameraActivity.class);
             startActivity(camera);
         });
+    }
+
+    void postToInstagram() {
+        Intent share = new Intent(ACTION_SEND);
+        share.setAction(ACTION_SEND);
+        share.setType("image/*");
+        share.putExtra("source_application", "@string/facebook_app_id");
+        share.putExtra(Intent.EXTRA_STREAM, imageUri);
+
+        try {
+            startActivity(Intent.createChooser(share, "Share to"));
+        } catch (ActivityNotFoundException e) {
+            Log.e("postToInstagram", "ActivityNotFoundException");
+        }
     }
 }
 

@@ -52,7 +52,15 @@ public class CameraActivity extends AppCompatActivity {
             result -> {
                 if (result.getResultCode() == RESULT_OK && result.getData() != null) {
                     // Photo taken and saved, time to post!
-                    postToInstagram();
+
+                    //switch back to results screen
+                    Intent backToResults = new Intent(this, EnterResultsActivity.class);
+                    backToResults.setData(imageUri);
+                    backToResults.putExtra("fromPhoto",true);
+                    startActivity(backToResults);
+
+
+                    //postToInstagram();
                 } else {
                     Log.e("ActivityResultLauncher", "Activity Result NOT OK");
                 }
@@ -67,17 +75,17 @@ public class CameraActivity extends AppCompatActivity {
         activityResultLauncher.launch(openCamera);
     }
 
-    void postToInstagram() {
-        Intent share = new Intent(ACTION_SEND);
-        share.setAction(ACTION_SEND);
-        share.setType("image/*");
-        share.putExtra("source_application", "@string/facebook_app_id");
-        share.putExtra(Intent.EXTRA_STREAM, imageUri);
-
-        try {
-            startActivity(Intent.createChooser(share, "Share to"));
-        } catch (ActivityNotFoundException e) {
-            Log.e("postToInstagram", "ActivityNotFoundException");
-        }
-    }
+//    void postToInstagram() {
+//        Intent share = new Intent(ACTION_SEND);
+//        share.setAction(ACTION_SEND);
+//        share.setType("image/*");
+//        share.putExtra("source_application", "@string/facebook_app_id");
+//        share.putExtra(Intent.EXTRA_STREAM, imageUri);
+//
+//        try {
+//            startActivity(Intent.createChooser(share, "Share to"));
+//        } catch (ActivityNotFoundException e) {
+//            Log.e("postToInstagram", "ActivityNotFoundException");
+//        }
+//    }
 }

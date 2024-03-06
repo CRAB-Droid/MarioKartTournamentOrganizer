@@ -49,10 +49,27 @@ public class homeScreenActivity extends AppCompatActivity {
     public static final String ACTNAME_KEY = "name";
     public static final String DATE_KEY = "Date/Time";
     //private CollectionReference colllectionRef = FirebaseFirestore.getInstance().collection("act_objects");
-    private CollectionReference collection = FirebaseFirestore.getInstance().collection("act_objects");
+    private CollectionReference collection;
     //private CollectionReference collectionRef = dataBase.collection("act_objects");
     private static final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     private static final String username = user.getEmail();
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        collection = FirebaseFirestore.getInstance().collection("act_objects");
+        collection.addSnapshotListener(this, new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot value, FirebaseFirestoreException e) {
+                // if statement and code under it same as when fetching with button
+                if (e != null) {
+                    Log.w(TAG, "Listen failed.", e);
+                    return;
+                }
+                fillACTS();
+            }
+        });
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,7 +81,7 @@ public class homeScreenActivity extends AppCompatActivity {
         pastRecyclerView = (RecyclerView) findViewById(R.id.pastRecyclerView);
         infoTextView = findViewById(R.id.infoTextView);
 
-        fillACTS();
+//        fillACTS();
 
         createACTButton.setOnClickListener(v->
         {

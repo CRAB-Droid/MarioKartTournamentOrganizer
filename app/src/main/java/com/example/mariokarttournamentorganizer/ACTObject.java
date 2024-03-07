@@ -1,45 +1,101 @@
 package com.example.mariokarttournamentorganizer;
 
+import android.util.Log;
+
+import androidx.annotation.NonNull;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.AggregateQuery;
+import com.google.firebase.firestore.AggregateQuerySnapshot;
+import com.google.firebase.firestore.AggregateSource;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ACTObject {
-    private int ACTID;
-    private int ADMINID;
-    private boolean COMPLETED = false; //Set to true after act is completed
-    //private DateTime; //
-    private String LOCATION;
-    private int[] PLAYERS; //MAX 8
-    private int RESULT;
 
-    //Constructor
-    public ACTObject(int actid, int adminid, String location){
-        ACTID = actid; //Will be set by firebase most likely
-        ADMINID = adminid; //Fetched in firebase from user creating act
-        LOCATION = location; //Input by user
-        //Date Time will be set in firebase (Input by user though)
-        PLAYERS = new int[8];
-        Arrays.fill(PLAYERS, 0);
-        setPlayer(adminid);
+    public static final String ID_FIELD = "ID";
+    public static final String ADMIN_FIELD = "adminID";
+    public static final String DATE_FIELD = "date";
+    public static final String TIME_FIELD = "time";
+    public static final String LOCATION_FIELD = "location";
+    public static final String PLAYERS_FIELD = "players";
+//    public static final String TAG = "creatingACT";
+    public static final String COMPLETED_FIELD = "completed";
+    public static final String RESULT_FIELD = "result";
+//    public static final String TIMESTAMP_FIELD = "Date/Time";
+
+    private static final String TAG = "ACTObject";
+    private static final String COLLECTION = "act_objects";
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private CollectionReference coll = db.collection(COLLECTION);
+
+    public int ID;
+    public String adminID;
+    public String date;
+    public String time;
+    public String location;
+    public ArrayList<String> players;
+    public boolean completed;
+    public int result;
+    // timestamp not saved
+
+
+    public ACTObject() {
     }
 
-    //Place each player into PLAYERS array
-    public boolean setPlayer(int playerid){
-        for(int i=0;i<8;i++){
-            if(PLAYERS[i]==0) {
-                PLAYERS[i] = playerid;
-                return true;
+    public void createACT(String admin, String dateStr, String timeStr, String locationStr){
+        Map<String, Object> act1 = new HashMap<>();
+        act1.put(ADMIN_FIELD, admin);
+//        act1.put(TIMESTAMP_FIELD, Timestamp.now());
+        act1.put(COMPLETED_FIELD, false); //default
+        act1.put(DATE_FIELD, dateStr);
+        act1.put(TIME_FIELD, timeStr);
+        act1.put(LOCATION_FIELD, locationStr);
+        act1.put(PLAYERS_FIELD, Arrays.asList(admin));
+        act1.put(RESULT_FIELD, null);
+
+        Query query = coll;
+        AggregateQuery countQuery = query.count();
+
+        //getting count of act_objects to generate new ID
+        countQuery.get(AggregateSource.SERVER).addOnCompleteListener(new OnCompleteListener<AggregateQuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<AggregateQuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    // Count fetched successfully
+                    AggregateQuerySnapshot snapshot = task.getResult();
+                    long count = snapshot.getCount();
+                    String docPath = "act" + count;
+                    Log.d(TAG, "Count: " + count);
+                    Log.d(TAG, "Document name:" + docPath);
+
+                    act1.put(ID_FIELD, count);
+                    coll.document(docPath).set(act1)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Log.d(TAG, "DocumentSnapshot written, act"+count);
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.w(TAG, "Error writing document", e);
+                                }
+                            });
+                } else {
+                    Log.d(TAG, "Count failed: ", task.getException());
+                }
             }
-        }
-        return false;
+        });
     }
-    //Mark ACT as completed and put in results
-    public boolean setCompletedACT(int result){
-        //If ACT has already had results input, cannot input new results
-        if(COMPLETED) return false;
-        //Else input results and mark as completed
-        RESULT = result;
-        COMPLETED = true;
-        return true;
-    }
-
 }

@@ -237,8 +237,7 @@ public class homeScreenActivity extends AppCompatActivity {
             @Override
             public void onItemClicked(RecyclerView recyclerView, int position, View v) {
                 //Debug purposes
-                //infoTextView.setText(pastArray[position]);
-                //Send data to next class. Not the second putextra has a serializable as a second
+                //Send data to next class. Not the second put extra has a serializable as a second
                 //argument, so you must call "getIntent().getSerializableExtra" in the next activity.
                 viewACT.putExtra("name", pastArray[position]);
                 viewACT.putExtra("data", findACTMapping(hashMap, pastArray[position]));
@@ -251,7 +250,6 @@ public class homeScreenActivity extends AppCompatActivity {
         ItemClickSupport.addTo(upcomingRecyclerView).setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
             @Override
             public void onItemClicked(RecyclerView recyclerView, int position, View v) {
-                //infoTextView.setText(upcomingArray[position]);
 
                 viewACT.putExtra("name", upcomingArray[position]);
                 viewACT.putExtra("data", findACTMapping(hashMap, upcomingArray[position]));

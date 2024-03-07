@@ -11,28 +11,14 @@ import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 
-import androidx.activity.OnBackPressedCallback;
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.NonNull;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Toast;
 
-
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.FieldValue;
-import com.google.firebase.firestore.FirebaseFirestore;
-
-import java.net.URI;
-import java.util.HashMap;
-import java.util.Map;
 
 public class EnterResultsActivity extends AppCompatActivity {
 
@@ -52,8 +38,6 @@ public class EnterResultsActivity extends AppCompatActivity {
 
 
 
-    private FirebaseFirestore myFireStore = FirebaseFirestore.getInstance();
-    
     private int buttonClickCounter = 0;
     private ACTObject actObj;
 
@@ -83,19 +67,6 @@ public class EnterResultsActivity extends AppCompatActivity {
                     }
                 });
 
-//        boolean fromPhoto = getIntent().getBooleanExtra("fromPhoto", false);
-//        Log.d(TAG, "from photo?" + fromPhoto);
-
-//        if (fromPhoto == true){
-//            back = false;
-//            Log.d(TAG, "from photo?" + "made it to if statement");
-//            imageUri = getIntent().getData();
-//            postToInstagram();
-//            fromPhoto = false;
-//
-//        }
-
-
         results = (EditText) findViewById(R.id.resultsInputEditTextNumber);
 
         //Set up submit button
@@ -111,16 +82,10 @@ public class EnterResultsActivity extends AppCompatActivity {
             else {
                 if (!resultsStr.isEmpty()) {
                     //updating results and completed fielf of chosen act
-                    //currently the act to be edited is hardcoded
-                    DocumentReference actToBeUpdated = myFireStore.collection("act_objects").document(actTitle);
-                    actToBeUpdated.update(RESULT_FIELD, resultsStr);
-                    actToBeUpdated.update(COMPLETED_FIELD, true);
+                    actObj.enterResult(actTitle, resultsStr);
                     Toast.makeText(EnterResultsActivity.this,
                             "Result successfully entered.", Toast.LENGTH_SHORT).show();
 
-                    //Go back to homescreen after entering result
-//                    Intent homescreen = new Intent(this, homeScreenActivity.class);
-//                    startActivity(homescreen);
                     finish();
                 } else {
                     Toast.makeText(EnterResultsActivity.this,

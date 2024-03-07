@@ -19,8 +19,10 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -29,6 +31,7 @@ import java.util.Objects;
 
 
 public class ViewACTActivity extends AppCompatActivity {
+
     private TextView actTitleTextView;
     private TextView whoTextView;
     private TextView whenTextView;
@@ -37,10 +40,42 @@ public class ViewACTActivity extends AppCompatActivity {
     private TextView resultTextView;
     private Button addToCalendar;
     private Button joinOrResults;
+
+    public static final String ID_FIELD = "ID";
+    public static final String ADMIN_FIELD = "adminID";
+    public static final String DATE_FIELD = "date";
+    public static final String TIME_FIELD = "time";
+    public static final String LOCATION_FIELD = "location";
     public static final String PLAYERS_FIELD = "players";
+    public static final String COMPLETED_FIELD = "completed";
+    public static final String RESULT_FIELD = "result";
+    public static final String TIMESTAMP_FIELD = "Date/Time";
+
+    private String actTitle; // get name of ACT collection
+    private DocumentReference actDocument;
     private static final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     private static final String username = user.getEmail();
 
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        actTitle = getIntent().getStringExtra("name");
+        actDocument = FirebaseFirestore.getInstance()
+                .collection("act_objects")
+                .document(actTitle);
+        actDocument.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(DocumentSnapshot documentSnapshot, FirebaseFirestoreException e) {
+                // if statement and code under it same as when fetching with button
+                if (documentSnapshot.exists()) {
+                    processData(documentSnapshot.getData());
+                } else if (e != null) {
+                    Log.w("ViewACTActivity", "Got an exception!", e);
+                }
+            }
+        });
+    }
 
 
     @Override
@@ -57,14 +92,14 @@ public class ViewACTActivity extends AppCompatActivity {
         addToCalendar = (Button) findViewById(R.id.addToCalendarButton);
         joinOrResults = (Button) findViewById(R.id.joinOrResultsButton);
 
-        String actTitle = getIntent().getStringExtra("name"); // get name of ACT collection
-        HashMap<String, Object> data = (HashMap<String, Object>)getIntent().getSerializableExtra("data"); // get data from ACT collection
-        processData(actTitle, data);
+//
+//        HashMap<String, Object> data = (HashMap<String, Object>)getIntent().getSerializableExtra("data"); // get data from ACT collection
+//        processData(data);
     }
 
-    private void processData(String actTitle, Map<String, Object> data) {
+    private void processData(Map<String, Object> data) {
         if (data == null) {
-            Log.e(TAG, "invalid ACT id");
+            Log.e("ViewACTActivity", "invalid ACT id");
             finish();
         }
         // Set TextViews with correct data
@@ -96,7 +131,7 @@ public class ViewACTActivity extends AppCompatActivity {
         resultTextViewHeader.setVisibility(View.GONE);
         resultTextView.setVisibility(View.GONE);
 
-        addToCalendar.setOnClickListener(v -> addToCalendar());
+        addToCalendar.setOnClickListener(v -> addToCalendar(data, actTitle));
 
         boolean userIsAdmin = Objects.equals(username, (String) data.get("adminID"));
         if (userIsAdmin)
@@ -113,12 +148,13 @@ public class ViewACTActivity extends AppCompatActivity {
         });
     }
 
-    private void addToCalendar() {
-        //TODO
-        //Change names to actual activities
-        //Intent addCalendar = new Intent(this, Calendar.class);
-        //startActivity(addCalendar);
-        Log.v("Add Calendar", "Button Clicked");
+    private void addToCalendar(Map<String, Object> data, String actName) {
+        Log.v("Add aj Calendar", "Button Clicked");
+
+        Intent toCalendar = new Intent(this, CalendarConnectionActivity.class);
+        toCalendar.putExtra("data", (HashMap<String, Object>) data);
+        toCalendar.putExtra("name", actName);
+        startActivity(toCalendar);
     }
 
     private void enterResults(String actTitle) {
@@ -133,45 +169,7 @@ public class ViewACTActivity extends AppCompatActivity {
         Log.v(TAG, "Button Clicked");
         Log.d(TAG, "actTitle: " + actTitle);
         Log.d(TAG, "user: " + username);
+        actDocument.update(PLAYERS_FIELD, FieldValue.arrayUnion(username));
 
-        DocumentReference actDocument = FirebaseFirestore.getInstance()
-                .collection("act_objects")
-                .document(actTitle);
-
-        actDocument.get().addOnSuccessListener(documentSnapshot -> {
-            if (documentSnapshot.exists()) {
-                // Document exists, proceed with the update
-                DocumentReference thisACT = FirebaseFirestore.getInstance().collection("act_objects").document(actTitle);
-                thisACT.update(PLAYERS_FIELD, FieldValue.arrayUnion(username));
-
-
-            } else {
-                // Document does not exist, handle the error or inform the user
-                Log.e("Join", "Document does not exist for title: " + actTitle);
-                // You might want to show an error message to the user or take appropriate action.
-            }
-        })
-        .addOnFailureListener(e -> {
-            // Handle the failure, e.g., log an error message
-            Log.e("Join", "Error checking document existence", e);
-        });
-
-        // fetch data so it updates users on screen when you sign up
-        actDocument.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
-                    DocumentSnapshot document = task.getResult();
-                    if (document.exists()) {
-                        Log.d(TAG, "DocumentSnapshot data");
-                        processData(actTitle, document.getData());
-                    } else {
-                        Log.d(TAG, "No such document");
-                    }
-                } else {
-                    Log.d(TAG, "get failed with ", task.getException());
-                }
-            }
-        });
     }
 }

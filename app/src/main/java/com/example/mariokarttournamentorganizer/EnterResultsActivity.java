@@ -5,6 +5,7 @@ import static android.content.Intent.ACTION_SEND;
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
+
 import android.net.Uri;
 import android.util.Log;
 import android.widget.Button;
@@ -16,10 +17,12 @@ import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
+
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Toast;
+
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -30,7 +33,6 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.net.URI;
 import java.util.HashMap;
 import java.util.Map;
-
 
 public class EnterResultsActivity extends AppCompatActivity {
 
@@ -51,12 +53,17 @@ public class EnterResultsActivity extends AppCompatActivity {
 
 
     private FirebaseFirestore myFireStore = FirebaseFirestore.getInstance();
+    
+    private int buttonClickCounter = 0;
+    private ACTObject actObj;
 
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.enter_results);
+
+        actObj = new ACTObject();
 
         //get ACT title from intent
         String actTitle = getIntent().getStringExtra("actTitle");
@@ -96,25 +103,36 @@ public class EnterResultsActivity extends AppCompatActivity {
         submit.setOnClickListener(v ->
         {
             resultsStr = results.getText().toString();
-            if (!resultsStr.isEmpty()) {
-                //updating results and completed fielf of chosen act
-                //currently the act to be edited is hardcoded
-                DocumentReference actToBeUpdated = myFireStore.collection("act_objects").document(actTitle);
-                actToBeUpdated.update(RESULT_FIELD, resultsStr);
-                actToBeUpdated.update(COMPLETED_FIELD, true);
+            if (buttonClickCounter == 0 && !resultsStr.isEmpty()){
                 Toast.makeText(EnterResultsActivity.this,
-                        "Result successfully entered.", Toast.LENGTH_SHORT).show();
-                finish();
-            } else {
-                Toast.makeText(EnterResultsActivity.this,
-                        "Please fill out necessary field.", Toast.LENGTH_SHORT).show();
+                        "Click 'Take Photo' button if you would like a winning team picture.", Toast.LENGTH_LONG).show();
+                buttonClickCounter++;
+            }
+            else {
+                if (!resultsStr.isEmpty()) {
+                    //updating results and completed fielf of chosen act
+                    //currently the act to be edited is hardcoded
+                    DocumentReference actToBeUpdated = myFireStore.collection("act_objects").document(actTitle);
+                    actToBeUpdated.update(RESULT_FIELD, resultsStr);
+                    actToBeUpdated.update(COMPLETED_FIELD, true);
+                    Toast.makeText(EnterResultsActivity.this,
+                            "Result successfully entered.", Toast.LENGTH_SHORT).show();
+
+                    //Go back to homescreen after entering result
+//                    Intent homescreen = new Intent(this, homeScreenActivity.class);
+//                    startActivity(homescreen);
+                    finish();
+                } else {
+                    Toast.makeText(EnterResultsActivity.this,
+                            "Please fill out necessary field.", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
         photo = (Button) findViewById(R.id.photoButton);
         photo.setOnClickListener(v->
         {
-            //TODO
+            buttonClickCounter++;
             Intent camera = new Intent(this, CameraActivity.class);
             activityResultLauncher.launch(camera);
         });
@@ -134,4 +152,4 @@ public class EnterResultsActivity extends AppCompatActivity {
         }
     }
 }
-
+}

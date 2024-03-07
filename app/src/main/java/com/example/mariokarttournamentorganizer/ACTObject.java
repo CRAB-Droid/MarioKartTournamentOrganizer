@@ -12,6 +12,7 @@ import com.google.firebase.firestore.AggregateQuery;
 import com.google.firebase.firestore.AggregateQuerySnapshot;
 import com.google.firebase.firestore.AggregateSource;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
@@ -50,6 +51,12 @@ public class ACTObject {
 
 
     public ACTObject() {
+    }
+
+    public void enterResult(String actTitle, String resultsStr) {
+        DocumentReference actToBeUpdated = coll.document(actTitle);
+        actToBeUpdated.update(RESULT_FIELD, resultsStr);
+        actToBeUpdated.update(COMPLETED_FIELD, true);
     }
 
     public void createACT(String admin, String dateStr, String timeStr, String locationStr){

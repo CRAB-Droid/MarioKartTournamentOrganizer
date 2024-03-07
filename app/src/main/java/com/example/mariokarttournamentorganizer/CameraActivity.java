@@ -81,7 +81,7 @@ public class CameraActivity extends AppCompatActivity {
         activityResultLauncher.launch(openCamera);
     }
 
-    private static final int CAMERA_PERMISSION_REQUEST_CODE = 100;
+//    private static final int CAMERA_PERMISSION_REQUEST_CODE = 100;
 
     // Check and request camera permission
 //    private void checkCameraPermission() {

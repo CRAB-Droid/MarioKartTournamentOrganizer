@@ -126,7 +126,6 @@ public class ViewACTActivity extends AppCompatActivity {
 
         Intent enterResults = new Intent(this, EnterResultsActivity.class);
         enterResults.putExtra("actTitle", actTitle);
-        enterResults.putExtra("fromPhoto", false);
         startActivity(enterResults);
     }
 

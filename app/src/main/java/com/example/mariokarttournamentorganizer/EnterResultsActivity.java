@@ -36,7 +36,7 @@ public class EnterResultsActivity extends AppCompatActivity {
 
         results = (EditText) findViewById(R.id.resultsInputEditTextNumber);
 
-        //Set up submit button
+        //Set up the submit button
         submit = (Button) findViewById(R.id.submitButton);
         submit.setOnClickListener(v ->
         {

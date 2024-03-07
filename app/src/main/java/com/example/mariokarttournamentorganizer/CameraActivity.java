@@ -2,9 +2,11 @@ package com.example.mariokarttournamentorganizer;
 
 import static android.content.Intent.ACTION_SEND;
 
+import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.ContentValues;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.net.Uri;
@@ -15,6 +17,8 @@ import android.widget.ImageView;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 public class CameraActivity extends AppCompatActivity {
 
@@ -56,8 +60,10 @@ public class CameraActivity extends AppCompatActivity {
                     //switch back to results screen
                     Intent backToResults = new Intent(this, EnterResultsActivity.class);
                     backToResults.setData(imageUri);
-                    backToResults.putExtra("fromPhoto",true);
-                    startActivity(backToResults);
+                    setResult(Activity.RESULT_OK, backToResults);
+                    finish();
+//                    backToResults.putExtra("fromPhoto",true);
+//                    startActivity(backToResults);
 
 
                     //postToInstagram();
@@ -74,6 +80,17 @@ public class CameraActivity extends AppCompatActivity {
         // Take and save photo
         activityResultLauncher.launch(openCamera);
     }
+
+    private static final int CAMERA_PERMISSION_REQUEST_CODE = 100;
+
+    // Check and request camera permission
+//    private void checkCameraPermission() {
+//        if (ContextCompat.checkSelfPermission(this, android.permission.CAMERA)
+//                != PackageManager.PERMISSION_GRANTED) {
+//            // Permission is not granted, request it
+//            ActivityCompat.requestPermissions(this, new String[]{android.permission.CAMERA}, CAMERA_PERMISSION_REQUEST_CODE);
+//        }
+//    }
 
 //    void postToInstagram() {
 //        Intent share = new Intent(ACTION_SEND);

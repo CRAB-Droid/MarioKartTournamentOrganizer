@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.util.Log;
 import android.widget.Button;
@@ -14,8 +15,13 @@ import android.widget.EditText;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import android.Manifest;
+
 import android.os.Bundle;
 import android.widget.Toast;
 
@@ -40,6 +46,8 @@ public class EnterResultsActivity extends AppCompatActivity {
 
     private int buttonClickCounter = 0;
     private ACTObject actObj;
+    private int camPermission = 2;
+    private int storagePermission = 2;
 
 
     @Override
@@ -98,9 +106,39 @@ public class EnterResultsActivity extends AppCompatActivity {
         photo.setOnClickListener(v->
         {
             buttonClickCounter++;
-            Intent camera = new Intent(this, CameraActivity.class);
-            activityResultLauncher.launch(camera);
+            getCameraPermission();
+//            getStoragePermissions();
+            if(camPermission == 1){
+                Intent camera = new Intent(this, CameraActivity.class);
+                activityResultLauncher.launch(camera);
+            }
+            else if (camPermission == 0){
+//                if (ActivityCompat.checkSelfPermission(EnterResultsActivity.this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED){
+//                ActivityCompat.requestPermissions(EnterResultsActivity.this, new String[]{Manifest.permission.CAMERA}, 100);}
+            }
         });
+    }
+
+    private void getCameraPermission(){
+       if (ActivityCompat.checkSelfPermission(EnterResultsActivity.this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED){
+           Log.i("Permission", "Not Granted");
+           ActivityCompat.requestPermissions(EnterResultsActivity.this, new String[]{Manifest.permission.CAMERA}, 100);
+       }
+       else camPermission = 1;
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if(requestCode == 100){
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                camPermission = 1;
+            }
+            else {
+                camPermission = 0;
+                Toast.makeText(getApplicationContext(), "Feature won't work without permissions", Toast.LENGTH_LONG).show();
+            }
+        }
     }
 
     void postToInstagram() {

@@ -85,7 +85,7 @@ public class SignupActivity extends AppCompatActivity {
                                     Toast.makeText(
                                                     getApplicationContext(),
                                                     "User is already an account" +
-                                                            "or Email is invalid",
+                                                            " or Email is invalid",
                                                     Toast.LENGTH_LONG)
                                             .show();
                                 }

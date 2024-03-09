@@ -105,10 +105,15 @@ public class ViewACTActivity extends AppCompatActivity {
         // Set TextViews with correct data
         actTitleTextView.setText(actTitle);
 
+        //Checks if user is admin
+        boolean userIsAdmin = Objects.equals(username, (String) data.get("adminID"));
+
         String playerString = "";
         ArrayList players = (ArrayList) data.get("players");
         for (int i=0; i<players.size(); i++) {
             playerString = playerString + (i+1) + ". " + players.get(i) + "\n";
+            //Checks to see if player has already joined an ACT, don't show join button
+            if((players.get(i).equals(username)) && (!userIsAdmin)) joinOrResults.setVisibility(View.GONE);
         }
         whoTextView.setText(playerString);
 
@@ -133,7 +138,6 @@ public class ViewACTActivity extends AppCompatActivity {
 
         addToCalendar.setOnClickListener(v -> addToCalendar(data, actTitle));
 
-        boolean userIsAdmin = Objects.equals(username, (String) data.get("adminID"));
         if (userIsAdmin)
             joinOrResults.setText("Enter Results");
         else // normal user perms, didn't create this particular ACT
@@ -149,7 +153,7 @@ public class ViewACTActivity extends AppCompatActivity {
     }
 
     private void addToCalendar(Map<String, Object> data, String actName) {
-        Log.v("Add aj Calendar", "Button Clicked");
+        Log.v("Calendar", "Button Clicked");
 
         Intent toCalendar = new Intent(this, CalendarConnectionActivity.class);
         toCalendar.putExtra("data", (HashMap<String, Object>) data);
@@ -170,6 +174,6 @@ public class ViewACTActivity extends AppCompatActivity {
         Log.d(TAG, "actTitle: " + actTitle);
         Log.d(TAG, "user: " + username);
         actDocument.update(PLAYERS_FIELD, FieldValue.arrayUnion(username));
-
+        joinOrResults.setVisibility(View.GONE);
     }
 }

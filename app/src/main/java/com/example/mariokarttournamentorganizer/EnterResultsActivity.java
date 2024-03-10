@@ -66,7 +66,6 @@ public class EnterResultsActivity extends AppCompatActivity {
                     if (result.getResultCode() == Activity.RESULT_OK) {
                         Intent data = result.getData();
                         // There are no request codes
-//                        Intent data = result.getData();
                         if(data != null) {
                             imageUri = data.getData();
                             if (imageUri != null) postToInstagram();
@@ -89,7 +88,7 @@ public class EnterResultsActivity extends AppCompatActivity {
             }
             else {
                 if (!resultsStr.isEmpty()) {
-                    //updating results and completed fielf of chosen act
+                    //updating results and completed field of chosen act
                     actObj.enterResult(actTitle, resultsStr);
                     Toast.makeText(EnterResultsActivity.this,
                             "Result successfully entered.", Toast.LENGTH_SHORT).show();
@@ -107,14 +106,9 @@ public class EnterResultsActivity extends AppCompatActivity {
         {
             buttonClickCounter++;
             getCameraPermission();
-//            getStoragePermissions();
             if(camPermission == 1){
                 Intent camera = new Intent(this, CameraActivity.class);
                 activityResultLauncher.launch(camera);
-            }
-            else if (camPermission == 0){
-//                if (ActivityCompat.checkSelfPermission(EnterResultsActivity.this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED){
-//                ActivityCompat.requestPermissions(EnterResultsActivity.this, new String[]{Manifest.permission.CAMERA}, 100);}
             }
         });
     }

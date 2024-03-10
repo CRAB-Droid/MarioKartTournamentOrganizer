@@ -24,10 +24,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".FirebaseDemoActivity"
-            android:exported="false"
-            android:parentActivityName=".homeScreenActivity"/>
-        <activity
             android:name=".SignupActivity"
             android:exported="false"
             android:parentActivityName=".LoginActivity"/>

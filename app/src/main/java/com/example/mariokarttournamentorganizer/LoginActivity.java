@@ -2,7 +2,6 @@ package com.example.mariokarttournamentorganizer;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -63,8 +62,6 @@ public class LoginActivity extends AppCompatActivity {
         userNameStr = username.getText().toString();
         passWordStr = password.getText().toString();
         if (!userNameStr.isEmpty() && !passWordStr.isEmpty()) {
-//            Log.v("Selected username", userNameStr);
-//            Log.v("Selected password", passWordStr);
             firebaseAuth.signInWithEmailAndPassword(userNameStr, passWordStr)
                     .addOnCompleteListener(
                             new OnCompleteListener<AuthResult>() {
@@ -76,8 +73,6 @@ public class LoginActivity extends AppCompatActivity {
 
                                         //Sign-in is successful
                                         Intent homescreen = new Intent(LoginActivity.this, homeScreenActivity.class);
-//                                      intentUser.putExtra("Username", userNameStr);
-//                                      intentUser.putExtra("Password", passWordStr);
                                         startActivity(homescreen);
                                     } else {
 

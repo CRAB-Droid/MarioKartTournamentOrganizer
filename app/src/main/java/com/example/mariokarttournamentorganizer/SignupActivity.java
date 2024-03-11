@@ -2,7 +2,6 @@ package com.example.mariokarttournamentorganizer;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -57,8 +56,6 @@ public class SignupActivity extends AppCompatActivity {
         passWordStr = password.getText().toString();
         RetypedPassStr = RetypedPass.getText().toString();
         if (!userNameStr.isEmpty() && !passWordStr.isEmpty() && !RetypedPassStr.isEmpty() && passWordStr.equals(RetypedPassStr)) {
-//            Log.v("Selected username", userNameStr);
-//            Log.v("Selected password", passWordStr);
             if (!isStrongPassword(passWordStr)) {
                 //Password must be at least 8 characters long and contain a Upper case, lower case, number and special char
                 Toast.makeText(getApplicationContext(), "Pass must be 8 chars + contain upper+lower case," + "number, special char"
@@ -76,8 +73,6 @@ public class SignupActivity extends AppCompatActivity {
                                             .show();
 
                                     Intent homescreen = new Intent(SignupActivity.this, homeScreenActivity.class);
-//                                intentUser.putExtra("Username", userNameStr);
-//                                intentUser.putExtra("Password", passWordStr);
                                     startActivity(homescreen);
                                 } else {
 
